@@ -1,0 +1,36 @@
+
+{
+  "name": "taiji_experiment_assignment",
+  "displayName": "实验分配记录",
+  "description": "记录用户的实验分组信息",
+  "fields": [
+    {
+      "name": "user_id",
+      "displayName": "用户ID",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "assignments",
+      "displayName": "实验分配",
+      "type": "json",
+      "required": true
+    },
+    {
+      "name": "timestamp",
+      "displayName": "分配时间",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_user_id",
+      "fields": ["user_id"]
+    },
+    {
+      "name": "idx_timestamp",
+      "fields": ["timestamp"]
+    }
+  ]
+}

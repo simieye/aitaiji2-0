@@ -1,0 +1,201 @@
+
+[
+  {
+    "_id": "flag_001",
+    "flagKey": "new_dashboard_ui",
+    "name": "新仪表盘界面",
+    "description": "全新的仪表盘用户界面，提供更直观的操作体验",
+    "enabled": true,
+    "rolloutPercentage": 30,
+    "targetUsers": ["user_001", "user_002", "user_003"],
+    "targetGroups": ["beta_testers", "enterprise_users"],
+    "conditions": {
+      "minVersion": "2.0.0",
+      "browser": ["chrome", "firefox", "safari"],
+      "device": ["desktop", "tablet"]
+    },
+    "metadata": {
+      "category": "ui",
+      "priority": "high",
+      "owner": "product_team"
+    },
+    "tags": ["ui", "dashboard", "beta"],
+    "status": "active",
+    "version": "1.0.0",
+    "environment": "production",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_002",
+    "flagKey": "advanced_analytics",
+    "name": "高级分析功能",
+    "description": "提供深度数据分析和预测功能",
+    "enabled": false,
+    "rolloutPercentage": 0,
+    "targetUsers": [],
+    "targetGroups": ["premium_users"],
+    "conditions": {
+      "subscription": ["enterprise", "professional"],
+      "minUsage": 100
+    },
+    "metadata": {
+      "category": "feature",
+      "priority": "medium",
+      "owner": "analytics_team"
+    },
+    "tags": ["analytics", "premium", "ai"],
+    "status": "development",
+    "version": "0.9.0",
+    "environment": "staging",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_003",
+    "flagKey": "stripe_payments",
+    "name": "Stripe支付集成",
+    "description": "集成Stripe支付系统，支持多种支付方式",
+    "enabled": true,
+    "rolloutPercentage": 100,
+    "targetUsers": [],
+    "targetGroups": [],
+    "conditions": {
+      "region": ["US", "EU", "CA"],
+      "currency": ["USD", "EUR", "CAD"]
+    },
+    "metadata": {
+      "category": "payment",
+      "priority": "high",
+      "owner": "payment_team"
+    },
+    "tags": ["payment", "stripe", "integration"],
+    "status": "active",
+    "version": "2.1.0",
+    "environment": "production",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_004",
+    "flagKey": "paypal_integration",
+    "name": "PayPal支付集成",
+    "description": "集成PayPal支付系统，提供额外的支付选项",
+    "enabled": true,
+    "rolloutPercentage": 50,
+    "targetUsers": ["user_004", "user_005"],
+    "targetGroups": ["paypal_users"],
+    "conditions": {
+      "region": ["US", "UK", "AU"],
+      "subscription": ["basic", "professional", "enterprise"]
+    },
+    "metadata": {
+      "category": "payment",
+      "priority": "medium",
+      "owner": "payment_team"
+    },
+    "tags": ["payment", "paypal", "integration"],
+    "status": "active",
+    "version": "1.5.0",
+    "environment": "production",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_005",
+    "flagKey": "alipay_integration",
+    "name": "支付宝支付集成",
+    "description": "集成支付宝支付系统，支持中国用户",
+    "enabled": false,
+    "rolloutPercentage": 0,
+    "targetUsers": [],
+    "targetGroups": ["china_users"],
+    "conditions": {
+      "region": ["CN"],
+      "currency": ["CNY"]
+    },
+    "metadata": {
+      "category": "payment",
+      "priority": "low",
+      "owner": "payment_team"
+    },
+    "tags": ["payment", "alipay", "china"],
+    "status": "testing",
+    "version": "0.8.0",
+    "environment": "staging",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_006",
+    "flagKey": "experiment_system",
+    "name": "实验系统",
+    "description": "A/B测试和实验管理系统",
+    "enabled": true,
+    "rolloutPercentage": 100,
+    "targetUsers": [],
+    "targetGroups": ["all_users"],
+    "conditions": {},
+    "metadata": {
+      "category": "system",
+      "priority": "high",
+      "owner": "product_team"
+    },
+    "tags": ["experiment", "ab_test", "system"],
+    "status": "active",
+    "version": "3.0.0",
+    "environment": "production",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_007",
+    "flagKey": "real_time_monitoring",
+    "name": "实时监控",
+    "description": "实时性能监控和告警系统",
+    "enabled": true,
+    "rolloutPercentage": 100,
+    "targetUsers": [],
+    "targetGroups": ["admin_users", "dev_team"],
+    "conditions": {
+      "role": ["admin", "developer"]
+    },
+    "metadata": {
+      "category": "monitoring",
+      "priority": "high",
+      "owner": "devops_team"
+    },
+    "tags": ["monitoring", "realtime", "performance"],
+    "status": "active",
+    "version": "2.2.0",
+    "environment": "production",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "flag_008",
+    "flagKey": "chat_gpt4_integration",
+    "name": "GPT-4聊天集成",
+    "description": "集成GPT-4提供更智能的聊天体验",
+    "enabled": false,
+    "rolloutPercentage": 0,
+    "targetUsers": ["user_001", "user_002"],
+    "targetGroups": ["premium_users", "beta_testers"],
+    "conditions": {
+      "subscription": ["professional", "enterprise"],
+      "usage_limit": 1000
+    },
+    "metadata": {
+      "category": "ai",
+      "priority": "high",
+      "owner": "ai_team"
+    },
+    "tags": ["ai", "gpt4", "chat", "premium"],
+    "status": "development",
+    "version": "0.5.0",
+    "environment": "development",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

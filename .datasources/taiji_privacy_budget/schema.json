@@ -1,0 +1,51 @@
+
+{
+  "name": "taiji_privacy_budget",
+  "title": "隐私预算表",
+  "schemas": [
+    {
+      "name": "epsilon",
+      "title": "隐私参数ε",
+      "type": "Number"
+    },
+    {
+      "name": "delta",
+      "title": "隐私参数δ",
+      "type": "Number"
+    },
+    {
+      "name": "mechanism",
+      "title": "隐私机制",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "use_case",
+      "title": "使用场景",
+      "type": "String"
+    },
+    {
+      "name": "constraints",
+      "title": "约束条件",
+      "type": "Object"
+    },
+    {
+      "name": "effectiveness",
+      "title": "有效性评估",
+      "type": "Object"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    }
+  ]
+}
+  

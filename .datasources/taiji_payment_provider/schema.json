@@ -1,0 +1,108 @@
+
+{
+  "name": "taiji_payment_provider",
+  "title": "支付提供商表",
+  "schemas": [
+    {
+      "name": "provider",
+      "title": "支付提供商",
+      "type": "String"
+    },
+    {
+      "name": "providerId",
+      "title": "第三方唯一标识",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "支付状态",
+      "type": "String"
+    },
+    {
+      "name": "amount",
+      "title": "支付金额",
+      "type": "Number"
+    },
+    {
+      "name": "currency",
+      "title": "货币类型",
+      "type": "String"
+    },
+    {
+      "name": "userId",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "subscriptionId",
+      "title": "订阅ID",
+      "type": "String"
+    },
+    {
+      "name": "paymentMethod",
+      "title": "支付方式",
+      "type": "String"
+    },
+    {
+      "name": "paymentIntentId",
+      "title": "支付意图ID",
+      "type": "String"
+    },
+    {
+      "name": "chargeId",
+      "title": "收费ID",
+      "type": "String"
+    },
+    {
+      "name": "invoiceId",
+      "title": "发票ID",
+      "type": "String"
+    },
+    {
+      "name": "receiptUrl",
+      "title": "收据URL",
+      "type": "Url"
+    },
+    {
+      "name": "failureCode",
+      "title": "失败代码",
+      "type": "String"
+    },
+    {
+      "name": "failureMessage",
+      "title": "失败消息",
+      "type": "String"
+    },
+    {
+      "name": "refundAmount",
+      "title": "退款金额",
+      "type": "Number"
+    },
+    {
+      "name": "refundStatus",
+      "title": "退款状态",
+      "type": "String"
+    },
+    {
+      "name": "refundId",
+      "title": "退款ID",
+      "type": "String"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    },
+    {
+      "name": "billingDetails",
+      "title": "账单详情",
+      "type": "Object"
+    },
+    {
+      "name": "customerDetails",
+      "title": "客户详情",
+      "type": "Object"
+    }
+  ]
+}
+  

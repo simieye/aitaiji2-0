@@ -1,0 +1,61 @@
+
+{
+  "name": "taiji_whitepaper",
+  "title": "白皮书表",
+  "schemas": [
+    {
+      "name": "title",
+      "title": "白皮书标题",
+      "type": "String"
+    },
+    {
+      "name": "industry",
+      "title": "行业",
+      "type": "String"
+    },
+    {
+      "name": "summary",
+      "title": "摘要",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "download_url",
+      "title": "下载链接",
+      "type": "Url"
+    },
+    {
+      "name": "size",
+      "title": "文件大小",
+      "type": "String"
+    },
+    {
+      "name": "format",
+      "title": "文件格式",
+      "type": "String"
+    },
+    {
+      "name": "downloads",
+      "title": "下载次数",
+      "type": "Number"
+    },
+    {
+      "name": "version",
+      "title": "版本号",
+      "type": "String"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "publish_date",
+      "title": "发布日期",
+      "type": "Date"
+    }
+  ]
+}
+  

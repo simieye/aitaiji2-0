@@ -1,0 +1,62 @@
+
+{
+  "name": "taiji_experiment_event",
+  "displayName": "实验事件",
+  "description": "记录实验过程中的用户行为事件",
+  "fields": [
+    {
+      "name": "user_id",
+      "displayName": "用户ID",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "experiment",
+      "displayName": "实验名称",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "variant",
+      "displayName": "实验变体",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "event",
+      "displayName": "事件类型",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "event_value",
+      "displayName": "事件值",
+      "type": "string"
+    },
+    {
+      "name": "page_url",
+      "displayName": "页面URL",
+      "type": "string"
+    },
+    {
+      "name": "timestamp",
+      "displayName": "事件时间",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_user_experiment",
+      "fields": ["user_id", "experiment"]
+    },
+    {
+      "name": "idx_timestamp",
+      "fields": ["timestamp"]
+    },
+    {
+      "name": "idx_experiment_variant",
+      "fields": ["experiment", "variant"]
+    }
+  ]
+}

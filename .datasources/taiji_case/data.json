@@ -1,0 +1,94 @@
+
+[
+  {
+    "_id": "case_001",
+    "industry": "金融科技",
+    "title": "某银行智能风控系统",
+    "description": "基于太极OS构建的智能风控系统，通过阴阳平衡算法实现实时风险评估和预警",
+    "efficiency_gain": "风险识别率提升85%",
+    "data_source": "银行交易数据、用户行为数据、第三方征信数据",
+    "implementation_time": "6个月",
+    "customer_name": "中国工商银行",
+    "tags": ["风控", "实时分析", "银行"],
+    "metrics": {
+      "risk_detection_rate": 0.85,
+      "false_positive_rate": 0.05,
+      "processing_latency": 50
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "case_002",
+    "industry": "医疗健康",
+    "title": "三甲医院AI影像诊断",
+    "description": "利用联邦学习技术，在保护患者隐私的前提下，实现跨医院协作的AI影像诊断",
+    "efficiency_gain": "诊断准确率提升40%",
+    "data_source": "医院影像数据、病历数据、专家标注数据",
+    "implementation_time": "4个月",
+    "customer_name": "北京协和医院",
+    "tags": ["医疗影像", "联邦学习", "隐私保护"],
+    "metrics": {
+      "diagnostic_accuracy": 0.94,
+      "privacy_budget": 1.0,
+      "collaboration_hospitals": 15
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "case_003",
+    "industry": "智能制造",
+    "title": "智能工厂数字孪生",
+    "description": "构建工厂的数字孪生体，实现预测性维护和生产线优化",
+    "efficiency_gain": "生产效率提升60%",
+    "data_source": "IoT传感器数据、MES系统数据、ERP数据",
+    "implementation_time": "8个月",
+    "customer_name": "富士康科技集团",
+    "tags": ["数字孪生", "预测维护", "工业4.0"],
+    "metrics": {
+      "efficiency_improvement": 0.6,
+      "downtime_reduction": 0.45,
+      "energy_saving": 0.3
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "case_004",
+    "industry": "智慧零售",
+    "title": "新零售智能门店",
+    "description": "基于太极OS的新零售解决方案，实现个性化推荐和智能库存管理",
+    "efficiency_gain": "销售额增长120%",
+    "data_source": "门店交易数据、用户行为数据、供应链数据",
+    "implementation_time": "3个月",
+    "customer_name": "阿里巴巴新零售",
+    "tags": ["新零售", "个性化推荐", "库存优化"],
+    "metrics": {
+      "sales_growth": 1.2,
+      "inventory_turnover": 2.5,
+      "customer_satisfaction": 0.92
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "case_005",
+    "industry": "能源管理",
+    "title": "分布式能源管理",
+    "description": "基于太极优化算法的分布式能源管理系统，实现可再生能源的高效利用",
+    "efficiency_gain": "能源利用率提升45%",
+    "data_source": "电网数据、气象数据、设备传感器数据",
+    "implementation_time": "5个月",
+    "customer_name": "国家电网",
+    "tags": ["能源管理", "可再生能源", "智能电网"],
+    "metrics": {
+      "energy_efficiency": 0.45,
+      "carbon_reduction": 0.3,
+      "renewable_integration": 0.8
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

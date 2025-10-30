@@ -1,0 +1,82 @@
+
+{
+  "name": "taiji_feature_flag",
+  "title": "功能开关表",
+  "schemas": [
+    {
+      "name": "flagKey",
+      "title": "功能开关标识",
+      "type": "String"
+    },
+    {
+      "name": "name",
+      "title": "功能名称",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "功能描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "enabled",
+      "title": "是否启用",
+      "type": "Boolean"
+    },
+    {
+      "name": "rolloutPercentage",
+      "title": "灰度百分比",
+      "type": "Number"
+    },
+    {
+      "name": "targetUsers",
+      "title": "目标用户白名单",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "targetGroups",
+      "title": "目标用户组",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "conditions",
+      "title": "启用条件",
+      "type": "Object"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    },
+    {
+      "name": "version",
+      "title": "版本号",
+      "type": "String"
+    },
+    {
+      "name": "environment",
+      "title": "环境",
+      "type": "String"
+    }
+  ]
+}
+  

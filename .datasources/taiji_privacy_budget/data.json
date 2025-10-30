@@ -1,0 +1,67 @@
+
+[
+  {
+    "_id": "budget_001",
+    "epsilon": 1.0,
+    "delta": 0.001,
+    "mechanism": "taiji_adaptive",
+    "description": "基于太极哲学的自适应隐私预算分配机制，根据数据敏感度和查询复杂度动态调整隐私参数",
+    "use_case": "金融风险评估",
+    "constraints": {
+      "max_queries": 1000,
+      "data_sensitivity": "high",
+      "user_consent": "required"
+    },
+    "effectiveness": {
+      "privacy_loss": 0.05,
+      "utility_preservation": 0.92,
+      "computational_overhead": 0.15
+    },
+    "tags": ["金融", "自适应", "差分隐私"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "budget_002",
+    "epsilon": 0.5,
+    "delta": 0.0001,
+    "mechanism": "gaussian_taiji",
+    "description": "高斯机制与太极平衡算法结合的隐私保护方案，适用于医疗数据的联邦学习场景",
+    "use_case": "医疗影像诊断",
+    "constraints": {
+      "max_queries": 500,
+      "data_sensitivity": "critical",
+      "regulatory_compliance": "HIPAA"
+    },
+    "effectiveness": {
+      "privacy_loss": 0.02,
+      "utility_preservation": 0.89,
+      "computational_overhead": 0.25
+    },
+    "tags": ["医疗", "联邦学习", "高斯机制"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "budget_003",
+    "epsilon": 2.0,
+    "delta": 0.01,
+    "mechanism": "laplace_taiji",
+    "description": "拉普拉斯机制与太极优化算法结合的隐私预算方案，适用于大规模数据分析",
+    "use_case": "智能制造数据分析",
+    "constraints": {
+      "max_queries": 2000,
+      "data_sensitivity": "medium",
+      "real_time_processing": true
+    },
+    "effectiveness": {
+      "privacy_loss": 0.08,
+      "utility_preservation": 0.94,
+      "computational_overhead": 0.1
+    },
+    "tags": ["制造", "大规模数据", "拉普拉斯机制"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

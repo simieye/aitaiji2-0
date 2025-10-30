@@ -1,0 +1,71 @@
+
+[
+  {
+    "_id": "session_001",
+    "user_id": "user_001",
+    "session_name": "金融风险咨询",
+    "agent_ids": ["agent_002", "agent_004"],
+    "messages": [
+      {
+        "id": 1,
+        "type": "user",
+        "content": "如何构建一个智能风控系统？",
+        "timestamp": "2024-01-15T10:30:00Z"
+      },
+      {
+        "id": 2,
+        "type": "ai",
+        "agent": "太极分析师",
+        "content": "根据太极哲学，您的需求体现了阴阳平衡的原则。让我为您分析一下...",
+        "timestamp": "2024-01-15T10:30:15Z"
+      },
+      {
+        "id": 3,
+        "type": "ai",
+        "agent": "分布式专家",
+        "content": "从分布式架构的角度来看，我们可以采用联邦学习的方式来处理这个问题...",
+        "timestamp": "2024-01-15T10:30:30Z"
+      }
+    ],
+    "status": "active",
+    "metadata": {
+      "topic": "金融风险",
+      "complexity": "high",
+      "satisfaction": 0.95
+    },
+    "tags": ["金融", "风控", "咨询"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "session_002",
+    "user_id": "user_002",
+    "session_name": "医疗影像诊断讨论",
+    "agent_ids": ["agent_001", "agent_003"],
+    "messages": [
+      {
+        "id": 1,
+        "type": "user",
+        "content": "如何在保护隐私的前提下进行医疗影像分析？",
+        "timestamp": "2024-01-14T14:20:00Z"
+      },
+      {
+        "id": 2,
+        "type": "ai",
+        "agent": "隐私顾问",
+        "content": "在保护隐私的前提下，我们可以使用差分隐私技术来确保数据安全...",
+        "timestamp": "2024-01-14T14:20:20Z"
+      }
+    ],
+    "status": "completed",
+    "metadata": {
+      "topic": "医疗影像",
+      "complexity": "medium",
+      "satisfaction": 0.92
+    },
+    "tags": ["医疗", "隐私保护", "影像分析"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

@@ -1,0 +1,62 @@
+
+{
+  "name": "taiji_workflow",
+  "title": "工作流表",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "工作流名称",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "工作流描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "agents",
+      "title": "关联代理",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "tools",
+      "title": "使用工具",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    },
+    {
+      "name": "config",
+      "title": "配置参数",
+      "type": "Object"
+    },
+    {
+      "name": "priority",
+      "title": "优先级",
+      "type": "Number"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "metrics",
+      "title": "性能指标",
+      "type": "Object"
+    }
+  ]
+}
+  

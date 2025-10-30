@@ -1,0 +1,42 @@
+
+{
+  "name": "taiji_experiment_control",
+  "displayName": "实验控制",
+  "description": "记录实验的启动、暂停、重置等控制操作",
+  "fields": [
+    {
+      "name": "experiment_id",
+      "displayName": "实验ID",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "action",
+      "displayName": "操作类型",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "user_id",
+      "displayName": "操作用户",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "timestamp",
+      "displayName": "操作时间",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_experiment",
+      "fields": ["experiment_id"]
+    },
+    {
+      "name": "idx_timestamp",
+      "fields": ["timestamp"]
+    }
+  ]
+}

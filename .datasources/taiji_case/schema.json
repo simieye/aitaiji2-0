@@ -1,0 +1,56 @@
+
+{
+  "name": "taiji_case",
+  "title": "行业案例表",
+  "schemas": [
+    {
+      "name": "industry",
+      "title": "行业",
+      "type": "String"
+    },
+    {
+      "name": "title",
+      "title": "案例标题",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "案例描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "efficiency_gain",
+      "title": "效率提升",
+      "type": "String"
+    },
+    {
+      "name": "data_source",
+      "title": "数据来源",
+      "type": "String"
+    },
+    {
+      "name": "implementation_time",
+      "title": "实施周期",
+      "type": "String"
+    },
+    {
+      "name": "customer_name",
+      "title": "客户名称",
+      "type": "String"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "metrics",
+      "title": "关键指标",
+      "type": "Object"
+    }
+  ]
+}
+  

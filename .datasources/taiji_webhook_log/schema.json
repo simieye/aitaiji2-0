@@ -1,0 +1,91 @@
+
+{
+  "name": "taiji_webhook_log",
+  "displayName": "Webhook 日志",
+  "description": "记录 Stripe Webhook 事件处理日志",
+  "fields": [
+    {
+      "name": "event_id",
+      "displayName": "事件ID",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "event_type",
+      "displayName": "事件类型",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "customer_id",
+      "displayName": "客户ID",
+      "type": "string"
+    },
+    {
+      "name": "subscription_id",
+      "displayName": "订阅ID",
+      "type": "string"
+    },
+    {
+      "name": "invoice_id",
+      "displayName": "发票ID",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "displayName": "处理状态",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "request_data",
+      "displayName": "请求数据",
+      "type": "json"
+    },
+    {
+      "name": "response_data",
+      "displayName": "响应数据",
+      "type": "json"
+    },
+    {
+      "name": "error_message",
+      "displayName": "错误信息",
+      "type": "string"
+    },
+    {
+      "name": "processing_time",
+      "displayName": "处理时间(ms)",
+      "type": "number"
+    },
+    {
+      "name": "retry_count",
+      "displayName": "重试次数",
+      "type": "number",
+      "default": 0
+    },
+    {
+      "name": "timestamp",
+      "displayName": "处理时间",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_event_id",
+      "fields": ["event_id"]
+    },
+    {
+      "name": "idx_event_type",
+      "fields": ["event_type"]
+    },
+    {
+      "name": "idx_customer_id",
+      "fields": ["customer_id"]
+    },
+    {
+      "name": "idx_timestamp",
+      "fields": ["timestamp"]
+    }
+  ]
+}

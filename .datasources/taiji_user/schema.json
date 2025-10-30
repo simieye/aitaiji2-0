@@ -1,0 +1,48 @@
+
+{
+  "name": "taiji_user",
+  "title": "用户表",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "姓名",
+      "type": "String"
+    },
+    {
+      "name": "email",
+      "title": "邮箱",
+      "type": "Email"
+    },
+    {
+      "name": "role",
+      "title": "角色",
+      "type": "String"
+    },
+    {
+      "name": "avatar",
+      "title": "头像",
+      "type": "Image"
+    },
+    {
+      "name": "bio",
+      "title": "个人简介",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "social_links",
+      "title": "社交媒体链接",
+      "type": "Object"
+    },
+    {
+      "name": "company",
+      "title": "公司",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    }
+  ]
+}
+  

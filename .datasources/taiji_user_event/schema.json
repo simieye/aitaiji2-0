@@ -1,0 +1,163 @@
+
+{
+  "name": "taiji_user_event",
+  "title": "用户行为日志表",
+  "schemas": [
+    {
+      "name": "user_id",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "session_id",
+      "title": "会话ID",
+      "type": "String"
+    },
+    {
+      "name": "event",
+      "title": "事件类型",
+      "type": "String"
+    },
+    {
+      "name": "event_category",
+      "title": "事件分类",
+      "type": "String"
+    },
+    {
+      "name": "event_action",
+      "title": "事件动作",
+      "type": "String"
+    },
+    {
+      "name": "event_label",
+      "title": "事件标签",
+      "type": "String"
+    },
+    {
+      "name": "event_value",
+      "title": "事件数值",
+      "type": "Number"
+    },
+    {
+      "name": "page_url",
+      "title": "页面URL",
+      "type": "String"
+    },
+    {
+      "name": "page_title",
+      "title": "页面标题",
+      "type": "String"
+    },
+    {
+      "name": "referrer",
+      "title": "来源页面",
+      "type": "String"
+    },
+    {
+      "name": "user_agent",
+      "title": "用户代理",
+      "type": "String"
+    },
+    {
+      "name": "ip_address",
+      "title": "IP地址",
+      "type": "String"
+    },
+    {
+      "name": "country",
+      "title": "国家",
+      "type": "String"
+    },
+    {
+      "name": "city",
+      "title": "城市",
+      "type": "String"
+    },
+    {
+      "name": "device_type",
+      "title": "设备类型",
+      "type": "String"
+    },
+    {
+      "name": "browser",
+      "title": "浏览器",
+      "type": "String"
+    },
+    {
+      "name": "os",
+      "title": "操作系统",
+      "type": "String"
+    },
+    {
+      "name": "screen_resolution",
+      "title": "屏幕分辨率",
+      "type": "String"
+    },
+    {
+      "name": "viewport_size",
+      "title": "视口大小",
+      "type": "String"
+    },
+    {
+      "name": "load_time",
+      "title": "页面加载时间",
+      "type": "Number"
+    },
+    {
+      "name": "time_on_page",
+      "title": "页面停留时间",
+      "type": "Number"
+    },
+    {
+      "name": "scroll_depth",
+      "title": "滚动深度",
+      "type": "Number"
+    },
+    {
+      "name": "click_count",
+      "title": "点击次数",
+      "type": "Number"
+    },
+    {
+      "name": "form_interactions",
+      "title": "表单交互",
+      "type": "Object"
+    },
+    {
+      "name": "error_message",
+      "title": "错误信息",
+      "type": "String"
+    },
+    {
+      "name": "error_stack",
+      "title": "错误堆栈",
+      "type": "String"
+    },
+    {
+      "name": "custom_properties",
+      "title": "自定义属性",
+      "type": "Object"
+    },
+    {
+      "name": "experiment_id",
+      "title": "实验ID",
+      "type": "String"
+    },
+    {
+      "name": "variation_id",
+      "title": "变体ID",
+      "type": "String"
+    },
+    {
+      "name": "conversion_value",
+      "title": "转化价值",
+      "type": "Number"
+    },
+    {
+      "name": "revenue",
+      "title": "收入",
+      "type": "Number"
+    }
+  ]
+}
+  

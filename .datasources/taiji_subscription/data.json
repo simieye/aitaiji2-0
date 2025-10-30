@@ -1,0 +1,127 @@
+
+[
+  {
+    "_id": "sub_001",
+    "user_id": "user_001",
+    "stripe_customer_id": "cus_1234567890",
+    "stripe_subscription_id": "sub_1234567890",
+    "plan": {
+      "id": "price_enterprise",
+      "name": "企业版",
+      "price": 999,
+      "interval": "month"
+    },
+    "status": "active",
+    "current_period_start": 1704067200000,
+    "current_period_end": 1706745600000,
+    "cancel_at_period_end": false,
+    "trial_start": null,
+    "trial_end": null,
+    "amount": 999,
+    "currency": "usd",
+    "payment_method": "card",
+    "billing_cycle": "monthly",
+    "features": [
+      "无限工作流",
+      "高级分析",
+      "优先支持",
+      "自定义集成",
+      "API访问"
+    ],
+    "usage_limits": {
+      "workflows": -1,
+      "agents": 100,
+      "storage_gb": 1000,
+      "api_calls": 100000
+    },
+    "metadata": {
+      "source": "website",
+      "campaign": "enterprise_launch",
+      "sales_rep": "zhangwuji"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "sub_002",
+    "user_id": "user_002",
+    "stripe_customer_id": "cus_0987654321",
+    "stripe_subscription_id": "sub_0987654321",
+    "plan": {
+      "id": "price_pro",
+      "name": "专业版",
+      "price": 299,
+      "interval": "month"
+    },
+    "status": "trialing",
+    "current_period_start": 1704067200000,
+    "current_period_end": 1706745600000,
+    "cancel_at_period_end": false,
+    "trial_start": 1704067200000,
+    "trial_end": 1706745600000,
+    "amount": 299,
+    "currency": "usd",
+    "payment_method": "card",
+    "billing_cycle": "monthly",
+    "features": [
+      "50个工作流",
+      "标准分析",
+      "邮件支持",
+      "基础集成"
+    ],
+    "usage_limits": {
+      "workflows": 50,
+      "agents": 20,
+      "storage_gb": 100,
+      "api_calls": 10000
+    },
+    "metadata": {
+      "source": "referral",
+      "campaign": "pro_trial",
+      "referrer": "user_001"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "sub_003",
+    "user_id": "user_003",
+    "stripe_customer_id": "cus_1122334455",
+    "stripe_subscription_id": "sub_1122334455",
+    "plan": {
+      "id": "price_basic",
+      "name": "基础版",
+      "price": 99,
+      "interval": "month"
+    },
+    "status": "canceled",
+    "current_period_start": 1701388800000,
+    "current_period_end": 1704067200000,
+    "cancel_at_period_end": true,
+    "trial_start": null,
+    "trial_end": null,
+    "amount": 99,
+    "currency": "usd",
+    "payment_method": "card",
+    "billing_cycle": "monthly",
+    "features": [
+      "10个工作流",
+      "基础分析",
+      "社区支持"
+    ],
+    "usage_limits": {
+      "workflows": 10,
+      "agents": 5,
+      "storage_gb": 10,
+      "api_calls": 1000
+    },
+    "metadata": {
+      "source": "organic",
+      "campaign": "basic_plan",
+      "cancellation_reason": "budget_constraints"
+    },
+    "createdAt": 1701388800000,
+    "updatedAt": 1704067200000
+  }
+]
+  

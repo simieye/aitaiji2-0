@@ -1,0 +1,56 @@
+
+{
+  "name": "taiji_tool",
+  "title": "工具表",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "工具名称",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "工具描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "category",
+      "title": "工具分类",
+      "type": "String"
+    },
+    {
+      "name": "schema",
+      "title": "工具配置",
+      "type": "Object"
+    },
+    {
+      "name": "version",
+      "title": "版本号",
+      "type": "String"
+    },
+    {
+      "name": "documentation_url",
+      "title": "文档链接",
+      "type": "Url"
+    },
+    {
+      "name": "download_url",
+      "title": "下载链接",
+      "type": "Url"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    }
+  ]
+}
+  

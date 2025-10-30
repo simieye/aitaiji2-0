@@ -1,0 +1,70 @@
+
+[
+  {
+    "_id": "workflow_001",
+    "name": "金融风险评估工作流",
+    "description": "基于太极哲学的智能风控系统，实现阴阳平衡的风险评估",
+    "agents": ["agent_002", "agent_003", "agent_004"],
+    "tools": ["tool_001", "tool_003"],
+    "status": "active",
+    "config": {
+      "risk_threshold": 0.8,
+      "analysis_depth": "deep",
+      "real_time": true
+    },
+    "priority": 1,
+    "tags": ["金融", "风控", "实时分析"],
+    "metrics": {
+      "accuracy": 0.95,
+      "processing_time": 100,
+      "success_rate": 0.99
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "workflow_002",
+    "name": "医疗影像诊断工作流",
+    "description": "分布式医疗影像AI诊断系统，保护患者隐私的同时提升诊断准确率",
+    "agents": ["agent_001", "agent_002", "agent_003"],
+    "tools": ["tool_002", "tool_003"],
+    "status": "active",
+    "config": {
+      "image_resolution": "high",
+      "privacy_level": "strict",
+      "multi_hospital": true
+    },
+    "priority": 2,
+    "tags": ["医疗", "影像诊断", "隐私保护"],
+    "metrics": {
+      "accuracy": 0.94,
+      "processing_time": 500,
+      "success_rate": 0.98
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "workflow_003",
+    "name": "智能制造优化工作流",
+    "description": "基于数字孪生的智能制造优化系统，实现生产效率最大化",
+    "agents": ["agent_001", "agent_003", "agent_004"],
+    "tools": ["tool_001", "tool_002"],
+    "status": "active",
+    "config": {
+      "factory_model": "digital_twin",
+      "optimization_target": "efficiency",
+      "real_time_monitoring": true
+    },
+    "priority": 3,
+    "tags": ["制造", "数字孪生", "优化"],
+    "metrics": {
+      "efficiency_gain": 0.6,
+      "cost_reduction": 0.35,
+      "success_rate": 0.97
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

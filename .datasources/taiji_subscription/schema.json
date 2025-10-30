@@ -1,0 +1,100 @@
+
+{
+  "name": "taiji_subscription",
+  "title": "订阅记录表",
+  "schemas": [
+    {
+      "name": "user_id",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "stripe_customer_id",
+      "title": "Stripe客户ID",
+      "type": "String"
+    },
+    {
+      "name": "stripe_subscription_id",
+      "title": "Stripe订阅ID",
+      "type": "String"
+    },
+    {
+      "name": "plan",
+      "title": "订阅计划",
+      "type": "Object"
+    },
+    {
+      "name": "status",
+      "title": "订阅状态",
+      "type": "String"
+    },
+    {
+      "name": "current_period_start",
+      "title": "当前周期开始时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "current_period_end",
+      "title": "当前周期结束时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "cancel_at_period_end",
+      "title": "周期结束时取消",
+      "type": "Boolean"
+    },
+    {
+      "name": "trial_start",
+      "title": "试用期开始时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "trial_end",
+      "title": "试用期结束时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "amount",
+      "title": "订阅金额",
+      "type": "Number"
+    },
+    {
+      "name": "currency",
+      "title": "货币类型",
+      "type": "String"
+    },
+    {
+      "name": "payment_method",
+      "title": "支付方式",
+      "type": "String"
+    },
+    {
+      "name": "billing_cycle",
+      "title": "计费周期",
+      "type": "String"
+    },
+    {
+      "name": "features",
+      "title": "包含功能",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "usage_limits",
+      "title": "使用限制",
+      "type": "Object"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

@@ -1,0 +1,59 @@
+
+{
+  "name": "taiji_agent",
+  "title": "智能代理表",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "代理名称",
+      "type": "String"
+    },
+    {
+      "name": "type",
+      "title": "代理类型",
+      "type": "String"
+    },
+    {
+      "name": "layer",
+      "title": "所属层级",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "features",
+      "title": "功能特性",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "icon",
+      "title": "图标",
+      "type": "String"
+    },
+    {
+      "name": "color",
+      "title": "颜色配置",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    },
+    {
+      "name": "capabilities",
+      "title": "能力列表",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    }
+  ]
+}
+  

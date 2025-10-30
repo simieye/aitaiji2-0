@@ -1,0 +1,65 @@
+
+[
+  {
+    "_id": "tool_001",
+    "name": "状态管理器",
+    "description": "基于太极哲学的分布式状态同步工具，实现阴阳平衡的数据流管理",
+    "category": "状态管理",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "sync_interval": {"type": "number", "default": 1000},
+        "conflict_resolution": {"type": "string", "enum": ["timestamp", "vector_clock", "taiji_balance"]}
+      }
+    },
+    "version": "1.0.0",
+    "documentation_url": "https://docs.taiji-os.com/tools/state-manager",
+    "download_url": "https://cdn.taiji-os.com/tools/state-manager-v1.0.0.zip",
+    "tags": ["状态同步", "分布式", "太极算法"],
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "tool_002",
+    "name": "分布式工作流引擎",
+    "description": "智能编排跨节点任务，如太极推手般协调各方力量",
+    "category": "工作流",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "max_concurrent_tasks": {"type": "number", "default": 100},
+        "retry_policy": {"type": "object"}
+      }
+    },
+    "version": "2.1.0",
+    "documentation_url": "https://docs.taiji-os.com/tools/workflow-engine",
+    "download_url": "https://cdn.taiji-os.com/tools/workflow-engine-v2.1.0.zip",
+    "tags": ["工作流", "分布式", "任务调度"],
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "tool_003",
+    "name": "隐私联邦计算器",
+    "description": "保护数据隐私的同时实现协同计算，阴阳相生相克的安全机制",
+    "category": "隐私计算",
+    "schema": {
+      "type": "object",
+      "properties": {
+        "epsilon": {"type": "number", "default": 1.0},
+        "delta": {"type": "number", "default": 0.001},
+        "mechanism": {"type": "string", "enum": ["laplace", "gaussian", "taiji"]}
+      }
+    },
+    "version": "1.5.0",
+    "documentation_url": "https://docs.taiji-os.com/tools/privacy-federal",
+    "download_url": "https://cdn.taiji-os.com/tools/privacy-federal-v1.5.0.zip",
+    "tags": ["隐私计算", "联邦学习", "差分隐私"],
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

@@ -1,0 +1,52 @@
+
+{
+  "name": "taiji_chat_session",
+  "title": "会话表",
+  "schemas": [
+    {
+      "name": "user_id",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "session_name",
+      "title": "会话名称",
+      "type": "String"
+    },
+    {
+      "name": "agent_ids",
+      "title": "参与代理",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "messages",
+      "title": "消息记录",
+      "type": "Array",
+      "items": {
+        "type": "Object"
+      }
+    },
+    {
+      "name": "status",
+      "title": "会话状态",
+      "type": "String"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    }
+  ]
+}
+  

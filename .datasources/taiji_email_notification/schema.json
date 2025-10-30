@@ -1,0 +1,82 @@
+
+{
+  "name": "taiji_email_notification",
+  "displayName": "邮件通知",
+  "description": "记录邮件通知发送记录",
+  "fields": [
+    {
+      "name": "user_id",
+      "displayName": "用户ID",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "email",
+      "displayName": "邮箱地址",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "subject",
+      "displayName": "邮件主题",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "content",
+      "displayName": "邮件内容",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "template_type",
+      "displayName": "模板类型",
+      "type": "string"
+    },
+    {
+      "name": "status",
+      "displayName": "发送状态",
+      "type": "string",
+      "required": true
+    },
+    {
+      "name": "error_message",
+      "displayName": "错误信息",
+      "type": "string"
+    },
+    {
+      "name": "sent_at",
+      "displayName": "发送时间",
+      "type": "datetime"
+    },
+    {
+      "name": "metadata",
+      "displayName": "元数据",
+      "type": "json"
+    },
+    {
+      "name": "created_at",
+      "displayName": "创建时间",
+      "type": "datetime",
+      "required": true
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_user_id",
+      "fields": ["user_id"]
+    },
+    {
+      "name": "idx_email",
+      "fields": ["email"]
+    },
+    {
+      "name": "idx_status",
+      "fields": ["status"]
+    },
+    {
+      "name": "idx_created_at",
+      "fields": ["created_at"]
+    }
+  ]
+}

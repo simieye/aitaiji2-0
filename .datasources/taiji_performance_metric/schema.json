@@ -1,0 +1,185 @@
+
+{
+  "name": "taiji_performance_metric",
+  "displayName": "性能指标",
+  "description": "记录前端性能监控数据，包括Web Vitals和自定义性能指标",
+  "fields": [
+    {
+      "name": "user_id",
+      "displayName": "用户ID",
+      "type": "string",
+      "required": true,
+      "description": "用户唯一标识"
+    },
+    {
+      "name": "session_id",
+      "displayName": "会话ID",
+      "type": "string",
+      "description": "用户会话标识"
+    },
+    {
+      "name": "fp",
+      "displayName": "首次绘制时间",
+      "type": "number",
+      "description": "First Paint (FP) 首次绘制时间，单位毫秒"
+    },
+    {
+      "name": "fcp",
+      "displayName": "首次内容绘制时间",
+      "type": "number",
+      "description": "First Contentful Paint (FCP) 首次内容绘制时间，单位毫秒"
+    },
+    {
+      "name": "lcp",
+      "displayName": "最大内容绘制时间",
+      "type": "number",
+      "description": "Largest Contentful Paint (LCP) 最大内容绘制时间，单位毫秒"
+    },
+    {
+      "name": "ttfb",
+      "displayName": "首字节时间",
+      "type": "number",
+      "description": "Time to First Byte (TTFB) 首字节时间，单位毫秒"
+    },
+    {
+      "name": "cls",
+      "displayName": "累积布局偏移",
+      "type": "number",
+      "description": "Cumulative Layout Shift (CLS) 累积布局偏移分数"
+    },
+    {
+      "name": "fid",
+      "displayName": "首次输入延迟",
+      "type": "number",
+      "description": "First Input Delay (FID) 首次输入延迟，单位毫秒"
+    },
+    {
+      "name": "tti",
+      "displayName": "可交互时间",
+      "type": "number",
+      "description": "Time to Interactive (TTI) 可交互时间，单位毫秒"
+    },
+    {
+      "name": "url",
+      "displayName": "页面URL",
+      "type": "string",
+      "description": "当前页面URL"
+    },
+    {
+      "name": "pathname",
+      "displayName": "页面路径",
+      "type": "string",
+      "description": "当前页面路径"
+    },
+    {
+      "name": "user_agent",
+      "displayName": "用户代理",
+      "type": "string",
+      "description": "浏览器用户代理字符串"
+    },
+    {
+      "name": "device_type",
+      "displayName": "设备类型",
+      "type": "string",
+      "description": "设备类型：desktop, mobile, tablet"
+    },
+    {
+      "name": "browser",
+      "displayName": "浏览器",
+      "type": "string",
+      "description": "浏览器名称和版本"
+    },
+    {
+      "name": "os",
+      "displayName": "操作系统",
+      "type": "string",
+      "description": "操作系统名称和版本"
+    },
+    {
+      "name": "network_type",
+      "displayName": "网络类型",
+      "type": "string",
+      "description": "网络类型：4g, 3g, 2g, wifi"
+    },
+    {
+      "name": "load_time",
+      "displayName": "页面加载时间",
+      "type": "number",
+      "description": "完整页面加载时间，单位毫秒"
+    },
+    {
+      "name": "dom_content_loaded",
+      "displayName": "DOM内容加载时间",
+      "type": "number",
+      "description": "DOMContentLoaded事件触发时间，单位毫秒"
+    },
+    {
+      "name": "resource_count",
+      "displayName": "资源数量",
+      "type": "number",
+      "description": "页面加载的资源总数"
+    },
+    {
+      "name": "resource_size",
+      "displayName": "资源总大小",
+      "type": "number",
+      "description": "页面资源总大小，单位字节"
+    },
+    {
+      "name": "timestamp",
+      "displayName": "记录时间",
+      "type": "datetime",
+      "required": true,
+      "description": "性能数据记录时间"
+    },
+    {
+      "name": "is_pwa",
+      "displayName": "是否为PWA",
+      "type": "boolean",
+      "description": "是否通过PWA方式访问"
+    },
+    {
+      "name": "connection_speed",
+      "displayName": "连接速度",
+      "type": "string",
+      "description": "连接速度等级：slow, moderate, fast"
+    }
+  ],
+  "indexes": [
+    {
+      "name": "idx_user_id",
+      "fields": ["user_id"],
+      "description": "按用户ID查询"
+    },
+    {
+      "name": "idx_timestamp",
+      "fields": ["timestamp"],
+      "description": "按时间查询"
+    },
+    {
+      "name": "idx_url",
+      "fields": ["url"],
+      "description": "按页面URL查询"
+    },
+    {
+      "name": "idx_device_type",
+      "fields": ["device_type"],
+      "description": "按设备类型查询"
+    },
+    {
+      "name": "idx_browser",
+      "fields": ["browser"],
+      "description": "按浏览器查询"
+    },
+    {
+      "name": "idx_performance_range",
+      "fields": ["lcp", "fid", "cls"],
+      "description": "按性能指标范围查询"
+    },
+    {
+      "name": "idx_composite",
+      "fields": ["user_id", "timestamp", "url"],
+      "description": "复合查询索引"
+    }
+  ]
+}

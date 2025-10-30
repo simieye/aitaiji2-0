@@ -1,0 +1,60 @@
+
+[
+  {
+    "_id": "agent_001",
+    "name": "Interface",
+    "type": "interface",
+    "layer": "Interface",
+    "description": "用户界面层，提供直观的操作体验",
+    "features": ["响应式设计", "多语言支持", "无障碍访问"],
+    "icon": "Terminal",
+    "color": "from-blue-500 to-cyan-500",
+    "status": "active",
+    "capabilities": ["用户交互", "界面渲染", "响应式适配"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "agent_002",
+    "name": "Agent",
+    "type": "intelligent",
+    "layer": "Agent",
+    "description": "智能代理层，实现分布式决策",
+    "features": ["AutoGen 多代理", "任务编排", "智能路由"],
+    "icon": "Network",
+    "color": "from-green-500 to-emerald-500",
+    "status": "active",
+    "capabilities": ["智能决策", "任务调度", "多代理协作"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "agent_003",
+    "name": "Matrix",
+    "type": "computational",
+    "layer": "Matrix",
+    "description": "矩阵计算层，处理大规模数据",
+    "features": ["分布式计算", "实时处理", "弹性扩展"],
+    "icon": "Layers",
+    "color": "from-purple-500 to-violet-500",
+    "status": "active",
+    "capabilities": ["矩阵运算", "数据处理", "分布式存储"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "agent_004",
+    "name": "Kernel",
+    "type": "core",
+    "layer": "Kernel",
+    "description": "核心引擎层，太极哲学驱动",
+    "features": ["阴阳平衡算法", "联邦学习", "隐私保护"],
+    "icon": "Cpu",
+    "color": "from-red-500 to-pink-500",
+    "status": "active",
+    "capabilities": ["算法引擎", "联邦学习", "隐私计算"],
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

@@ -1,0 +1,250 @@
+
+[
+  {
+    "_id": "pay_001",
+    "provider": "stripe",
+    "providerId": "pi_1234567890_stripe",
+    "status": "succeeded",
+    "amount": 999,
+    "currency": "usd",
+    "userId": "user_001",
+    "subscriptionId": "sub_001",
+    "paymentMethod": "card",
+    "paymentIntentId": "pi_1234567890",
+    "chargeId": "ch_1234567890",
+    "invoiceId": "in_1234567890",
+    "receiptUrl": "https://pay.stripe.com/receipts/payment/1234567890",
+    "failureCode": null,
+    "failureMessage": null,
+    "refundAmount": 0,
+    "refundStatus": null,
+    "refundId": null,
+    "metadata": {
+      "subscription_plan": "enterprise",
+      "payment_type": "subscription",
+      "customer_email": "user@example.com",
+      "customer_name": "张三",
+      "ip_address": "192.168.1.100",
+      "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7)"
+    },
+    "billingDetails": {
+      "name": "张三",
+      "email": "user@example.com",
+      "phone": "+86-138-0013-8000",
+      "address": {
+        "city": "北京",
+        "country": "CN",
+        "line1": "海淀区中关村大街1号",
+        "line2": "科技大厦A座",
+        "postal_code": "100080",
+        "state": "北京市"
+      }
+    },
+    "customerDetails": {
+      "email": "user@example.com",
+      "name": "张三",
+      "phone": "+86-138-0013-8000",
+      "tax_exempt": "none",
+      "tax_ids": []
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "pay_002",
+    "provider": "paypal",
+    "providerId": "PAY-12345678901234567",
+    "status": "succeeded",
+    "amount": 299,
+    "currency": "usd",
+    "userId": "user_002",
+    "subscriptionId": "sub_002",
+    "paymentMethod": "paypal",
+    "paymentIntentId": "PAY-12345678901234567",
+    "chargeId": "CHARGE-1234567890",
+    "invoiceId": "INV-1234567890",
+    "receiptUrl": "https://www.paypal.com/receipt/payment/1234567890",
+    "failureCode": null,
+    "failureMessage": null,
+    "refundAmount": 0,
+    "refundStatus": null,
+    "refundId": null,
+    "metadata": {
+      "subscription_plan": "professional",
+      "payment_type": "subscription",
+      "customer_email": "user2@example.com",
+      "customer_name": "李四",
+      "paypal_payer_id": "PAYER-1234567890",
+      "paypal_order_id": "ORDER-1234567890"
+    },
+    "billingDetails": {
+      "name": "李四",
+      "email": "user2@example.com",
+      "phone": "+86-139-0013-9000",
+      "address": {
+        "city": "上海",
+        "country": "CN",
+        "line1": "浦东新区陆家嘴环路1000号",
+        "line2": "金融中心大厦",
+        "postal_code": "200120",
+        "state": "上海市"
+      }
+    },
+    "customerDetails": {
+      "email": "user2@example.com",
+      "name": "李四",
+      "phone": "+86-139-0013-9000",
+      "tax_exempt": "none"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "pay_003",
+    "provider": "alipay",
+    "providerId": "202401011234567890",
+    "status": "succeeded",
+    "amount": 99,
+    "currency": "cny",
+    "userId": "user_003",
+    "subscriptionId": "sub_003",
+    "paymentMethod": "alipay",
+    "paymentIntentId": "202401011234567890",
+    "chargeId": "ALIPAY-CHARGE-1234567890",
+    "invoiceId": "ALIPAY-INV-1234567890",
+    "receiptUrl": "https://render.alipay.com/p/c/k2cx0tg8",
+    "failureCode": null,
+    "failureMessage": null,
+    "refundAmount": 0,
+    "refundStatus": null,
+    "refundId": null,
+    "metadata": {
+      "subscription_plan": "basic",
+      "payment_type": "subscription",
+      "customer_email": "user3@example.com",
+      "customer_name": "王五",
+      "alipay_buyer_id": "2088123456789012",
+      "alipay_trade_no": "202401011234567890"
+    },
+    "billingDetails": {
+      "name": "王五",
+      "email": "user3@example.com",
+      "phone": "+86-137-0013-7000",
+      "address": {
+        "city": "深圳",
+        "country": "CN",
+        "line1": "南山区科技园",
+        "line2": "腾讯大厦",
+        "postal_code": "518000",
+        "state": "广东省"
+      }
+    },
+    "customerDetails": {
+      "email": "user3@example.com",
+      "name": "王五",
+      "phone": "+86-137-0013-7000",
+      "tax_exempt": "none"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "pay_004",
+    "provider": "stripe",
+    "providerId": "pi_0987654321_stripe",
+    "status": "failed",
+    "amount": 999,
+    "currency": "usd",
+    "userId": "user_004",
+    "subscriptionId": "sub_004",
+    "paymentMethod": "card",
+    "paymentIntentId": "pi_0987654321",
+    "chargeId": null,
+    "invoiceId": "in_0987654321",
+    "receiptUrl": null,
+    "failureCode": "card_declined",
+    "failureMessage": "Your card was declined.",
+    "refundAmount": 0,
+    "refundStatus": null,
+    "refundId": null,
+    "metadata": {
+      "subscription_plan": "enterprise",
+      "payment_type": "subscription",
+      "customer_email": "user4@example.com",
+      "customer_name": "赵六",
+      "decline_code": "generic_decline",
+      "risk_level": "elevated"
+    },
+    "billingDetails": {
+      "name": "赵六",
+      "email": "user4@example.com",
+      "phone": "+86-136-0013-6000",
+      "address": {
+        "city": "广州",
+        "country": "CN",
+        "line1": "天河区珠江新城",
+        "line2": "金融中心",
+        "postal_code": "510000",
+        "state": "广东省"
+      }
+    },
+    "customerDetails": {
+      "email": "user4@example.com",
+      "name": "赵六",
+      "phone": "+86-136-0013-6000",
+      "tax_exempt": "none"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "pay_005",
+    "provider": "stripe",
+    "providerId": "pi_5555555555_stripe",
+    "status": "succeeded",
+    "amount": 299,
+    "currency": "usd",
+    "userId": "user_005",
+    "subscriptionId": "sub_005",
+    "paymentMethod": "card",
+    "paymentIntentId": "pi_5555555555",
+    "chargeId": "ch_5555555555",
+    "invoiceId": "in_5555555555",
+    "receiptUrl": "https://pay.stripe.com/receipts/payment/5555555555",
+    "failureCode": null,
+    "failureMessage": null,
+    "refundAmount": 299,
+    "refundStatus": "succeeded",
+    "refundId": "re_5555555555",
+    "metadata": {
+      "subscription_plan": "professional",
+      "payment_type": "refund",
+      "customer_email": "user5@example.com",
+      "customer_name": "孙七",
+      "refund_reason": "subscription_cancelled",
+      "refund_amount": 299
+    },
+    "billingDetails": {
+      "name": "孙七",
+      "email": "user5@example.com",
+      "phone": "+86-135-0013-5000",
+      "address": {
+        "city": "杭州",
+        "country": "CN",
+        "line1": "西湖区文三路",
+        "line2": "阿里巴巴园区",
+        "postal_code": "310000",
+        "state": "浙江省"
+      }
+    },
+    "customerDetails": {
+      "email": "user5@example.com",
+      "name": "孙七",
+      "phone": "+86-135-0013-5000",
+      "tax_exempt": "none"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

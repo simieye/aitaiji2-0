@@ -1,0 +1,72 @@
+
+[
+  {
+    "_id": "user_001",
+    "name": "张无极",
+    "email": "zhangwuji@taiji-os.com",
+    "role": "创始人 & CEO",
+    "avatar": "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=300&q=80",
+    "bio": "太极哲学研究者，前Google AI研究员，致力于将东方智慧融入现代科技",
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/zhangwuji",
+      "twitter": "https://twitter.com/zhangwuji",
+      "github": "https://github.com/zhangwuji"
+    },
+    "company": "太极OS",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "user_002",
+    "name": "李阴阳",
+    "email": "liyinyang@taiji-os.com",
+    "role": "CTO",
+    "avatar": "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=300&q=80",
+    "bio": "分布式系统专家，曾主导多个大型云平台的架构设计",
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/liyinyang",
+      "twitter": "https://twitter.com/liyinyang",
+      "github": "https://github.com/liyinyang"
+    },
+    "company": "太极OS",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "user_003",
+    "name": "王太极",
+    "email": "wangtaiji@taiji-os.com",
+    "role": "首席科学家",
+    "avatar": "https://images.unsplash.com/photo-1494790108755-2616b612b786?w=300&q=80",
+    "bio": "AI研究员，专注于联邦学习和隐私计算，发表多篇顶级会议论文",
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/wangtaiji",
+      "twitter": "https://twitter.com/wangtaiji",
+      "github": "https://github.com/wangtaiji"
+    },
+    "company": "太极OS",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "user_004",
+    "name": "陈乾坤",
+    "email": "chenqiankun@taiji-os.com",
+    "role": "产品总监",
+    "avatar": "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=300&q=80",
+    "bio": "资深产品经理，曾负责多个成功的企业级AI产品",
+    "social_links": {
+      "linkedin": "https://linkedin.com/in/chenqiankun",
+      "twitter": "https://twitter.com/chenqiankun",
+      "github": "https://github.com/chenqiankun"
+    },
+    "company": "太极OS",
+    "status": "active",
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  
