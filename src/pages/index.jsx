@@ -3,23 +3,24 @@ import React, { useState, useEffect } from 'react';
 // @ts-ignore;
 import { Button, Card, CardContent, CardDescription, CardHeader, CardTitle, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
-import { ArrowRight, Zap, Shield, Users, TrendingUp, Play, BookOpen, MessageSquare, Star, Clock } from 'lucide-react';
+import { ArrowRight, Zap, Shield, Users, TrendingUp, Play } from 'lucide-react';
 
 // @ts-ignore;
 import { ExperimentProvider, useExperiment } from '@/components/ExperimentProvider';
+// @ts-ignore;
+import { useAutoRefresh } from '@/components/AutoRefresh';
+// @ts-ignore;
+import { withRetry } from '@/components/RetryHandler';
 function IndexContent(props) {
   const {
     $w,
     style
   } = props;
-  const [stats, setStats] = useState({
+  const [metrics, setMetrics] = useState({
     totalUsers: 0,
     totalAgents: 0,
-    totalWorkflows: 0,
-    totalCases: 0
+    totalWorkflows: 0
   });
-  const [featuredAgents, setFeaturedAgents] = useState([]);
-  const [latestCases, setLatestCases] = useState([]);
   const [loading, setLoading] = useState(true);
   const {
     toast
@@ -27,16 +28,19 @@ function IndexContent(props) {
 
   // 获取实验变体
   const heroExperiment = useExperiment('hero_layout');
-  const ctaExperiment = useExperiment('cta_button_color');
-  useEffect(() => {
-    loadHomepageData();
-  }, []);
-  const loadHomepageData = async () => {
-    try {
-      setLoading(true);
+  const ctaExperiment = useExperiment('cta_button_style');
 
-      // 并行加载所有首页数据
-      const [usersResult, agentsResult, workflowsResult, casesResult] = await Promise.all([$w.cloud.callDataSource({
+  // 自动刷新
+  const {
+    startAutoRefresh,
+    stopAutoRefresh
+  } = useAutoRefresh(loadMetricsData, 30000);
+  useEffect(() => {
+    loadMetricsData();
+  }, []);
+  const loadMetricsData = async () => {
+    try {
+      const [usersResult, agentsResult, workflowsResult] = await Promise.all([withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_user',
         methodName: 'wedaGetRecordsV2',
         params: {
@@ -44,24 +48,15 @@ function IndexContent(props) {
           pageSize: 1,
           pageNumber: 1
         }
-      }), $w.cloud.callDataSource({
+      })), withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_agent',
         methodName: 'wedaGetRecordsV2',
         params: {
-          filter: {
-            where: {
-              is_featured: {
-                $eq: true
-              }
-            }
-          },
-          orderBy: [{
-            createdAt: 'desc'
-          }],
-          pageSize: 3,
+          getCount: true,
+          pageSize: 1,
           pageNumber: 1
         }
-      }), $w.cloud.callDataSource({
+      })), withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_workflow',
         methodName: 'wedaGetRecordsV2',
         params: {
@@ -69,25 +64,12 @@ function IndexContent(props) {
           pageSize: 1,
           pageNumber: 1
         }
-      }), $w.cloud.callDataSource({
-        dataSourceName: 'taiji_case',
-        methodName: 'wedaGetRecordsV2',
-        params: {
-          orderBy: [{
-            createdAt: 'desc'
-          }],
-          pageSize: 3,
-          pageNumber: 1
-        }
-      })]);
-      setStats({
+      }))]);
+      setMetrics({
         totalUsers: usersResult.total || 0,
-        totalAgents: agentsResult.records?.length || 0,
-        totalWorkflows: workflowsResult.total || 0,
-        totalCases: casesResult.records?.length || 0
+        totalAgents: agentsResult.total || 0,
+        totalWorkflows: workflowsResult.total || 0
       });
-      setFeaturedAgents(agentsResult.records || []);
-      setLatestCases(casesResult.records || []);
       setLoading(false);
     } catch (error) {
       toast({
@@ -104,170 +86,101 @@ function IndexContent(props) {
       params: {}
     });
   };
-  const handleViewAgent = agentId => {
-    $w.utils.navigateTo({
-      pageId: 'product',
-      params: {
-        agentId
-      }
-    });
-  };
-  const handleViewCase = caseId => {
-    $w.utils.navigateTo({
-      pageId: 'solutions',
-      params: {
-        caseId
-      }
-    });
-  };
   if (loading) {
     return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
         <div className="container mx-auto px-4 py-20">
           <div className="text-center">
             <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
-            <p className="text-white mt-4">正在加载数据...</p>
+            <p className="text-white mt-4">正在加载...</p>
           </div>
         </div>
       </div>;
   }
   return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
-      {/* Hero Section */}
-      <section className={`relative overflow-hidden ${heroExperiment?.variant === 'video' ? 'min-h-screen' : 'min-h-screen'}`}>
-        <div className="absolute inset-0 bg-gradient-to-br from-red-600/20 via-black/50 to-white/10"></div>
-        <div className="relative container mx-auto px-4 py-32">
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 leading-tight">
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-red-500 to-white">
-                AI太极
-              </span>
-              <br />
-              <span className="text-3xl md:text-5xl text-gray-300">
-                智能代理平台
-              </span>
-            </h1>
-            <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-              基于太极哲学的智能代理系统，让AI像太极一样刚柔并济，为您的业务提供灵活而强大的自动化解决方案。
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Button onClick={handleGetStarted} className={`bg-gradient-to-r ${ctaExperiment?.value || 'from-red-500 to-red-600'} hover:from-red-600 hover:to-red-700 text-white px-8 py-4 text-lg rounded-full shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105`}>
-                立即开始
-                <ArrowRight className="w-5 h-5 ml-2" />
-              </Button>
-              <Button variant="outline" className="border-white/20 text-white hover:bg-white/10 px-8 py-4 text-lg rounded-full">
-                <Play className="w-5 h-5 mr-2" />
-                观看演示
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Stats Section */}
-      <section className="py-20 bg-gray-900/50 backdrop-blur">
-        <div className="container mx-auto px-4">
-          <div className="grid md:grid-cols-4 gap-8 text-center">
-            <div className="group">
-              <div className="text-4xl font-bold text-red-400 mb-2">{stats.totalUsers.toLocaleString()}</div>
-              <div className="text-gray-300">活跃用户</div>
-            </div>
-            <div className="group">
-              <div className="text-4xl font-bold text-blue-400 mb-2">{stats.totalAgents}</div>
-              <div className="text-gray-300">智能代理</div>
-            </div>
-            <div className="group">
-              <div className="text-4xl font-bold text-green-400 mb-2">{stats.totalWorkflows}</div>
-              <div className="text-gray-300">工作流</div>
-            </div>
-            <div className="group">
-              <div className="text-4xl font-bold text-purple-400 mb-2">{stats.totalCases}</div>
-              <div className="text-gray-300">成功案例</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Featured Agents */}
-      <section className="py-20">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">精选智能代理</h2>
-            <p className="text-gray-300">基于太极哲学设计的智能代理，刚柔并济</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {featuredAgents.map(agent => <Card key={agent._id} className="bg-gray-900/50 backdrop-blur border-gray-700 hover:border-red-500/50 transition-all duration-300">
-                <CardHeader>
-                  <CardTitle className="text-white">{agent.name}</CardTitle>
-                  <CardDescription className="text-gray-300">{agent.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-2">
-                    <div className="flex items-center text-sm text-gray-400">
-                      <Zap className="w-4 h-4 mr-2" />
-                      <span>{agent.capabilities?.join(', ') || '智能分析'}</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <Shield className="w-4 h-4 mr-2" />
-                      <span>隐私保护: {agent.privacy_level || '高'}</span>
-                    </div>
-                  </div>
-                  <Button onClick={() => handleViewAgent(agent._id)} variant="outline" className="w-full mt-4 border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
-                    查看详情
-                  </Button>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* Latest Cases */}
-      <section className="py-20 bg-gray-900/30">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-12">
-            <h2 className="text-4xl font-bold text-white mb-4">最新成功案例</h2>
-            <p className="text-gray-300">真实客户的成功故事</p>
-          </div>
-          <div className="grid md:grid-cols-3 gap-8">
-            {latestCases.map(caseItem => <Card key={caseItem._id} className="bg-gray-900/50 backdrop-blur border-gray-700">
-                <CardHeader>
-                  <CardTitle className="text-white">{caseItem.title}</CardTitle>
-                  <CardDescription className="text-gray-300">{caseItem.industry}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="space-y-3">
-                    <div className="flex items-center text-sm text-gray-400">
-                      <TrendingUp className="w-4 h-4 mr-2" />
-                      <span>效率提升: {caseItem.efficiency_improvement || '30%'}</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <Clock className="w-4 h-4 mr-2" />
-                      <span>实施周期: {caseItem.implementation_time || '2周'}</span>
-                    </div>
-                    <div className="flex items-center text-sm text-gray-400">
-                      <Star className="w-4 h-4 mr-2" />
-                      <span>满意度: {caseItem.satisfaction_score || '4.8'}/5</span>
-                    </div>
-                  </div>
-                  <Button onClick={() => handleViewCase(caseItem._id)} variant="outline" className="w-full mt-4 border-blue-500 text-blue-500 hover:bg-blue-500 hover:text-white">
-                    查看详情
-                  </Button>
-                </CardContent>
-              </Card>)}
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-red-600/20 to-blue-600/20">
-        <div className="container mx-auto px-4 text-center">
-          <h2 className="text-4xl font-bold text-white mb-4">开始您的AI太极之旅</h2>
-          <p className="text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-            加入数千家企业，体验太极哲学与AI技术的完美融合
+      <div className="container mx-auto px-4 py-8">
+        {/* Hero Section */}
+        <div className="text-center py-20">
+          <h1 className={`text-6xl font-bold text-white mb-6 ${heroExperiment === 'large' ? 'text-7xl' : ''}`}>
+            AI太极
+            <span className="text-red-500">智能代理</span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            构建下一代AI代理，自动化您的工作流程，释放无限可能
           </p>
-          <Button onClick={handleGetStarted} className="bg-gradient-to-r from-red-500 to-red-600 hover:from-red-600 hover:to-red-700 text-white px-8 py-4 text-lg rounded-full shadow-lg">
-            立即开始免费试用
-          </Button>
+          <div className="flex justify-center space-x-4">
+            <Button onClick={handleGetStarted} className={`bg-red-500 hover:bg-red-600 ${ctaExperiment === 'large' ? 'px-8 py-4 text-lg' : ''}`}>
+              立即开始 <ArrowRight className="w-4 h-4 ml-2" />
+            </Button>
+            <Button variant="outline" className="border-gray-600 text-white hover:bg-gray-700">
+              <Play className="w-4 h-4 mr-2" />
+              观看演示
+            </Button>
+          </div>
         </div>
-      </section>
+
+        {/* Metrics */}
+        <div className="grid md:grid-cols-3 gap-8 mb-16">
+          <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Users className="w-5 h-5 mr-2" />
+                活跃用户
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-white">{metrics.totalUsers.toLocaleString()}</div>
+              <Badge className="bg-green-500 text-white mt-2">+12% 本月</Badge>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <Zap className="w-5 h-5 mr-2" />
+                智能代理
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-white">{metrics.totalAgents.toLocaleString()}</div>
+              <Badge className="bg-blue-500 text-white mt-2">+8% 本月</Badge>
+            </CardContent>
+          </Card>
+
+          <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+            <CardHeader>
+              <CardTitle className="text-white flex items-center">
+                <TrendingUp className="w-5 h-5 mr-2" />
+                工作流
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="text-3xl font-bold text-white">{metrics.totalWorkflows.toLocaleString()}</div>
+              <Badge className="bg-purple-500 text-white mt-2">+15% 本月</Badge>
+            </CardContent>
+          </Card>
+        </div>
+
+        {/* Features */}
+        <div className="grid md:grid-cols-2 gap-12 mb-16">
+          <div>
+            <h2 className="text-3xl font-bold text-white mb-4">智能自动化</h2>
+            <p className="text-gray-300 mb-6">
+              利用先进的AI技术，自动处理重复性任务，让您专注于更有价值的工作。
+            </p>
+            <ul className="space-y-3 text-gray-300">
+              <li className="flex items-center"><Shield className="w-5 h-5 mr-2 text-green-500" />企业级安全保障</li>
+              <li className="flex items-center"><Zap className="w-5 h-5 mr-2 text-blue-500" />毫秒级响应速度</li>
+              <li className="flex items-center"><Users className="w-5 h-5 mr-2 text-purple-500" />团队协作支持</li>
+            </ul>
+          </div>
+          <div className="bg-gray-800 rounded-lg p-8">
+            <div className="text-center">
+              <div className="text-6xl font-bold text-red-500 mb-2">99.9%</div>
+              <div className="text-gray-300">系统可用性</div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>;
 }
 export default function IndexPage(props) {

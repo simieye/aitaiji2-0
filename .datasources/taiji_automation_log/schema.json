@@ -1,0 +1,104 @@
+
+{
+  "name": "taiji_automation_log",
+  "title": "自动化任务日志表",
+  "schemas": [
+    {
+      "name": "taskType",
+      "title": "任务类型",
+      "type": "String"
+    },
+    {
+      "name": "status",
+      "title": "任务状态",
+      "type": "String"
+    },
+    {
+      "name": "executeTime",
+      "title": "执行时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "duration",
+      "title": "执行时长",
+      "type": "Number"
+    },
+    {
+      "name": "errorMessage",
+      "title": "错误消息",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "metadata",
+      "title": "任务参数",
+      "type": "Object"
+    },
+    {
+      "name": "retryCount",
+      "title": "重试次数",
+      "type": "Number"
+    },
+    {
+      "name": "taskId",
+      "title": "任务ID",
+      "type": "String"
+    },
+    {
+      "name": "taskName",
+      "title": "任务名称",
+      "type": "String"
+    },
+    {
+      "name": "taskDescription",
+      "title": "任务描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "priority",
+      "title": "优先级",
+      "type": "String"
+    },
+    {
+      "name": "scheduledTime",
+      "title": "计划执行时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "completedTime",
+      "title": "完成时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "initiatedBy",
+      "title": "触发者",
+      "type": "String"
+    },
+    {
+      "name": "affectedRecords",
+      "title": "影响记录数",
+      "type": "Number"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "environment",
+      "title": "执行环境",
+      "type": "String"
+    },
+    {
+      "name": "performanceMetrics",
+      "title": "性能指标",
+      "type": "Object"
+    }
+  ]
+}
+  

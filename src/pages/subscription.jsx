@@ -1,14 +1,22 @@
 // @ts-ignore;
 import React, { useState, useEffect } from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button, Badge, useToast, Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button, Badge, useToast } from '@/components/ui';
 // @ts-ignore;
-import { Check, X, Star, Zap as AlipayIcon, Shield, CreditCard, DollarSign } from 'lucide-react';
+import { CreditCard, CheckCircle, AlertCircle, Clock, RefreshCw, Mail } from 'lucide-react';
 
 // @ts-ignore;
 import { ExperimentProvider, useExperiment } from '@/components/ExperimentProvider';
 // @ts-ignore;
-import { PaymentProviderCard } from '@/components/PaymentProviderCard';
+import { useAutoRefresh } from '@/components/AutoRefresh';
+// @ts-ignore;
+import { withRetry } from '@/components/RetryHandler';
+// @ts-ignore;
+import { SubscriptionCard } from '@/components/SubscriptionCard';
+// @ts-ignore;
+import { CurrentSubscription } from '@/components/CurrentSubscription';
+// @ts-ignore;
+import { PaymentStatusSync } from '@/components/PaymentStatusSync';
 function SubscriptionContent(props) {
   const {
     $w,
@@ -16,69 +24,29 @@ function SubscriptionContent(props) {
   } = props;
   const [subscriptions, setSubscriptions] = useState([]);
   const [currentSubscription, setCurrentSubscription] = useState(null);
-  const [selectedPlan, setSelectedPlan] = useState(null);
-  const [selectedProvider, setSelectedProvider] = useState('stripe');
+  const [paymentProviders, setPaymentProviders] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [processingPayment, setProcessingPayment] = useState(false);
+  const [refreshing, setRefreshing] = useState(false);
   const {
     toast
   } = useToast();
 
-  // 支付提供商配置
-  const paymentProviders = [{
-    type: 'stripe',
-    name: 'Stripe',
-    description: '全球领先的支付处理平台',
-    security: 'PCI DSS 一级认证',
-    processingTime: '即时处理',
-    isRecommended: true
-  }, {
-    type: 'paypal',
-    name: 'PayPal',
-    description: '全球广泛使用的在线支付',
-    security: '买家保护计划',
-    processingTime: '1-2分钟',
-    isRecommended: false
-  }, {
-    type: 'alipay',
-    name: '支付宝',
-    description: '中国领先的移动支付平台',
-    security: '支付宝担保交易',
-    processingTime: '即时处理',
-    isRecommended: false
-  }];
-  const plans = [{
-    id: 'basic',
-    name: '基础版',
-    price: 9900,
-    currency: 'CNY',
-    description: '适合个人和小型团队',
-    features: ['最多5个代理', '基础工作流', '邮件支持', '1GB存储空间'],
-    popular: false
-  }, {
-    id: 'professional',
-    name: '专业版',
-    price: 29900,
-    currency: 'CNY',
-    description: '适合中型企业和团队',
-    features: ['最多50个代理', '高级工作流', '优先支持', '10GB存储空间', 'API访问'],
-    popular: true
-  }, {
-    id: 'enterprise',
-    name: '企业版',
-    price: 99900,
-    currency: 'CNY',
-    description: '适合大型企业和机构',
-    features: ['无限代理', '自定义工作流', '专属客服', '100GB存储空间', '高级API', 'SLA保证'],
-    popular: false
-  }];
+  // 获取实验变体
+  const pricingExperiment = useExperiment('pricing_display');
+  const checkoutExperiment = useExperiment('checkout_flow');
+
+  // 自动刷新
+  const {
+    startAutoRefresh,
+    stopAutoRefresh
+  } = useAutoRefresh(loadSubscriptionData, 30000);
   useEffect(() => {
     loadSubscriptionData();
   }, []);
   const loadSubscriptionData = async () => {
     try {
       setLoading(true);
-      const [subscriptionsResult, currentResult] = await Promise.all([$w.cloud.callDataSource({
+      const [subscriptionsResult, providersResult, currentResult] = await Promise.all([withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_subscription',
         methodName: 'wedaGetRecordsV2',
         params: {
@@ -88,17 +56,27 @@ function SubscriptionContent(props) {
           pageSize: 50,
           pageNumber: 1
         }
-      }), $w.cloud.callDataSource({
+      })), withRetry(() => $w.cloud.callDataSource({
+        dataSourceName: 'taiji_payment_provider',
+        methodName: 'wedaGetRecordsV2',
+        params: {
+          orderBy: [{
+            createdAt: 'desc'
+          }],
+          pageSize: 10,
+          pageNumber: 1
+        }
+      })), withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_subscription',
         methodName: 'wedaGetRecordsV2',
         params: {
           filter: {
             where: {
-              user_id: {
-                $eq: $w.auth.currentUser?.userId || 'anonymous'
+              userId: {
+                $eq: $w.auth.currentUser?.userId
               },
               status: {
-                $in: ['active', 'trialing']
+                $in: ['active', 'pending', 'past_due']
               }
             }
           },
@@ -108,11 +86,10 @@ function SubscriptionContent(props) {
           pageSize: 1,
           pageNumber: 1
         }
-      })]);
+      }))]);
       setSubscriptions(subscriptionsResult.records || []);
-      if (currentResult.records && currentResult.records.length > 0) {
-        setCurrentSubscription(currentResult.records[0]);
-      }
+      setPaymentProviders(providersResult.records || []);
+      setCurrentSubscription(currentResult.records?.[0] || null);
       setLoading(false);
     } catch (error) {
       toast({
@@ -123,136 +100,152 @@ function SubscriptionContent(props) {
       setLoading(false);
     }
   };
-  const handleSelectPlan = plan => {
-    setSelectedPlan(plan);
-  };
-  const handleSelectProvider = provider => {
-    setSelectedProvider(provider);
-  };
-  const handlePayment = async () => {
-    if (!selectedPlan || !selectedProvider) {
+  const handleRefreshPayments = async () => {
+    setRefreshing(true);
+    try {
+      await loadSubscriptionData();
       toast({
-        title: "选择不完整",
-        description: "请选择订阅计划和支付提供商",
+        title: "支付记录已更新",
+        description: "所有支付记录已同步最新状态",
+        variant: "default"
+      });
+    } catch (error) {
+      toast({
+        title: "更新失败",
+        description: error.message,
         variant: "destructive"
       });
-      return;
+    } finally {
+      setRefreshing(false);
     }
-    setProcessingPayment(true);
+  };
+  const handleSubscribe = async plan => {
     try {
-      // 创建支付记录
-      const paymentRecord = await $w.cloud.callDataSource({
-        dataSourceName: 'taiji_payment_provider',
+      // 创建订阅记录
+      const subscription = await withRetry(() => $w.cloud.callDataSource({
+        dataSourceName: 'taiji_subscription',
         methodName: 'wedaCreateV2',
         params: {
           data: {
-            provider: selectedProvider,
-            providerId: `payment_${Date.now()}`,
+            userId: $w.auth.currentUser?.userId,
+            planId: plan.id,
             status: 'pending',
-            amount: selectedPlan.price,
-            currency: selectedPlan.currency,
-            userId: $w.auth.currentUser?.userId || 'anonymous',
-            subscriptionId: selectedPlan.id,
-            metadata: {
-              plan: selectedPlan,
-              timestamp: new Date()
-            },
+            amount: plan.price,
+            currency: 'CNY',
             createdAt: new Date(),
             updatedAt: new Date()
           }
         }
+      }));
+
+      // 记录支付事件
+      await withRetry(() => $w.cloud.callDataSource({
+        dataSourceName: 'taiji_user_event',
+        methodName: 'wedaCreateV2',
+        params: {
+          data: {
+            user_id: $w.auth.currentUser?.userId,
+            event: 'subscription_created',
+            event_category: 'conversion',
+            event_label: plan.name,
+            value: plan.price,
+            timestamp: new Date()
+          }
+        }
+      }));
+      toast({
+        title: "订阅创建成功",
+        description: `正在跳转到支付页面...`,
+        variant: "default"
       });
 
-      // 模拟支付处理
-      setTimeout(async () => {
-        const success = Math.random() > 0.1; // 90%成功率
-        await $w.cloud.callDataSource({
-          dataSourceName: 'taiji_payment_provider',
-          methodName: 'wedaUpdateV2',
-          params: {
-            data: {
-              status: success ? 'succeeded' : 'failed',
-              updatedAt: new Date()
-            },
-            filter: {
-              where: {
-                _id: {
-                  $eq: paymentRecord.id
-                }
-              }
-            }
-          }
-        });
-        if (success) {
-          // 创建订阅记录
-          await $w.cloud.callDataSource({
-            dataSourceName: 'taiji_subscription',
-            methodName: 'wedaCreateV2',
-            params: {
-              data: {
-                user_id: $w.auth.currentUser?.userId || 'anonymous',
-                plan: {
-                  id: selectedPlan.id,
-                  name: selectedPlan.name,
-                  price: selectedPlan.price,
-                  currency: selectedPlan.currency
-                },
-                status: 'active',
-                current_period_start: new Date(),
-                current_period_end: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000),
-                // 30天后
-                payment_provider: selectedProvider,
-                payment_id: paymentRecord.id,
-                createdAt: new Date(),
-                updatedAt: new Date()
-              }
-            }
-          });
-          toast({
-            title: "支付成功",
-            description: `您已成功订阅 ${selectedPlan.name}`,
-            variant: "default"
-          });
-          loadSubscriptionData();
-        } else {
-          toast({
-            title: "支付失败",
-            description: "支付处理失败，请重试",
-            variant: "destructive"
-          });
-        }
-        setProcessingPayment(false);
-      }, 2000);
+      // 模拟支付流程
+      setTimeout(() => {
+        handlePaymentComplete(subscription.id);
+      }, 3000);
     } catch (error) {
       toast({
-        title: "支付错误",
+        title: "订阅创建失败",
         description: error.message,
         variant: "destructive"
       });
-      setProcessingPayment(false);
     }
   };
-  const handleCancelSubscription = async () => {
-    if (!currentSubscription) return;
+  const handlePaymentComplete = async subscriptionId => {
     try {
-      await $w.cloud.callDataSource({
+      // 更新订阅状态为active
+      await withRetry(() => $w.cloud.callDataSource({
         dataSourceName: 'taiji_subscription',
         methodName: 'wedaUpdateV2',
         params: {
           data: {
-            status: 'canceled',
-            canceled_at: new Date(),
+            status: 'active',
             updatedAt: new Date()
           },
           filter: {
             where: {
               _id: {
-                $eq: currentSubscription._id
+                $eq: subscriptionId
               }
             }
           }
         }
+      }));
+
+      // 发送确认邮件
+      await withRetry(() => $w.cloud.callDataSource({
+        dataSourceName: 'taiji_email_notification',
+        methodName: 'wedaCreateV2',
+        params: {
+          data: {
+            recipient: $w.auth.currentUser?.email,
+            subject: '订阅成功确认',
+            content: `
+              <h2>订阅成功！</h2>
+              <p>感谢您订阅AI太极服务。</p>
+              <p>您的订阅已激活，可以开始使用所有功能。</p>
+            `,
+            status: 'pending',
+            createdAt: new Date(),
+            type: 'subscription_confirmation'
+          }
+        }
+      }));
+      toast({
+        title: "支付成功",
+        description: "订阅已激活，欢迎开始使用！",
+        variant: "default"
       });
+
+      // 重新加载数据
+      loadSubscriptionData();
+    } catch (error) {
+      toast({
+        title: "支付处理失败",
+        description: error.message,
+        variant: "destructive"
+      });
+    }
+  };
+  const handleCancelSubscription = async subscriptionId => {
+    try {
+      await withRetry(() => $w.cloud.callDataSource({
+        dataSourceName: 'taiji_subscription',
+        methodName: 'wedaUpdateV2',
+        params: {
+          data: {
+            status: 'cancelled',
+            updatedAt: new Date()
+          },
+          filter: {
+            where: {
+              _id: {
+                $eq: subscriptionId
+              }
+            }
+          }
+        }
+      }));
       toast({
         title: "订阅已取消",
         description: "您的订阅将在当前周期结束后终止",
@@ -280,100 +273,76 @@ function SubscriptionContent(props) {
   return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
       <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="text-center mb-12">
-          <h1 className="text-4xl font-bold text-white mb-4">订阅管理</h1>
-          <p className="text-xl text-gray-300">选择适合您的AI太极订阅计划</p>
+        <div className="text-center py-20">
+          <h1 className="text-5xl font-bold text-white mb-6">
+            订阅管理
+            <span className="text-red-500">灵活选择</span>
+          </h1>
+          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+            选择最适合您的订阅计划，享受AI太极的完整功能
+          </p>
         </div>
+
+        {/* Payment Status Sync */}
+        <PaymentStatusSync $w={$w} subscriptions={subscriptions} onStatusUpdate={loadSubscriptionData} />
 
         {/* Current Subscription */}
         {currentSubscription && <div className="mb-8">
-            <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
-              <CardHeader>
-                <CardTitle className="text-white">当前订阅</CardTitle>
-                <CardDescription className="text-gray-300">管理您的活跃订阅</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="flex items-center justify-between">
-                  <div>
-                    <h3 className="text-xl font-semibold text-white">{currentSubscription.plan?.name || '未知计划'}</h3>
-                    <p className="text-gray-300">状态: {currentSubscription.status}</p>
-                    <p className="text-gray-300">到期时间: {new Date(currentSubscription.current_period_end).toLocaleDateString('zh-CN')}</p>
-                  </div>
-                  <Button onClick={handleCancelSubscription} variant="outline" className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
-                    取消订阅
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
+            <CurrentSubscription subscription={currentSubscription} onCancel={handleCancelSubscription} />
           </div>}
 
         {/* Subscription Plans */}
-        <div className="mb-12">
-          <h2 className="text-3xl font-bold text-white mb-8 text-center">选择订阅计划</h2>
-          <div className="grid md:grid-cols-3 gap-8">
-            {plans.map(plan => <Card key={plan.id} className={`bg-gray-900/50 backdrop-blur border-gray-700 ${selectedPlan?.id === plan.id ? 'border-red-500' : ''} ${plan.popular ? 'border-yellow-500' : ''}`}>
-                <CardHeader>
-                  <div className="flex items-center justify-between">
-                    <CardTitle className="text-white">{plan.name}</CardTitle>
-                    {plan.popular && <Badge className="bg-yellow-500 text-white">最受欢迎</Badge>}
-                  </div>
-                  <CardDescription className="text-gray-300">{plan.description}</CardDescription>
-                </CardHeader>
-                <CardContent>
-                  <div className="text-3xl font-bold text-white mb-4">
-                    ¥{plan.price / 100}
-                    <span className="text-sm text-gray-400">/月</span>
-                  </div>
-                  <ul className="space-y-2 mb-6">
-                    {plan.features.map((feature, index) => <li key={index} className="flex items-center text-gray-300">
-                        <Check className="w-4 h-4 mr-2 text-green-500" />
-                        {feature}
-                      </li>)}
-                  </ul>
-                  <Button onClick={() => handleSelectPlan(plan)} className={`w-full ${selectedPlan?.id === plan.id ? 'bg-red-500 hover:bg-red-600' : 'bg-gray-700 hover:bg-gray-600'}`}>
-                    {selectedPlan?.id === plan.id ? '已选择' : '选择计划'}
-                  </Button>
-                </CardContent>
-              </Card>)}
-          </div>
+        <div className="grid md:grid-cols-3 gap-8 mb-8">
+          {[{
+          id: 'basic',
+          name: '基础版',
+          price: 99,
+          features: ['基础AI代理', '5个工作流', '邮件支持'],
+          popular: false
+        }, {
+          id: 'pro',
+          name: '专业版',
+          price: 299,
+          features: ['高级AI代理', '无限工作流', '优先支持', 'API访问'],
+          popular: true
+        }, {
+          id: 'enterprise',
+          name: '企业版',
+          price: 999,
+          features: ['企业级AI代理', '无限工作流', '24/7支持', '专属顾问'],
+          popular: false
+        }].map(plan => <SubscriptionCard key={plan.id} plan={plan} onSubscribe={handleSubscribe} currentPlan={currentSubscription?.planId} />)}
         </div>
 
-        {/* Payment Providers */}
-        {selectedPlan && <div className="mb-8">
-            <h2 className="text-3xl font-bold text-white mb-8 text-center">选择支付方式</h2>
-            <div className="grid md:grid-cols-3 gap-6">
-              {paymentProviders.map(provider => <PaymentProviderCard key={provider.type} provider={provider} onSelect={handleSelectProvider} isActive={selectedProvider === provider.type} />)}
+        {/* Payment History */}
+        <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+          <CardHeader>
+            <div className="flex items-center justify-between">
+              <CardTitle className="text-white">支付记录</CardTitle>
+              <Button onClick={handleRefreshPayments} disabled={refreshing} variant="outline" className="border-gray-600 text-white hover:bg-gray-700">
+                <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
+                刷新
+              </Button>
             </div>
-          </div>}
-
-        {/* Payment Summary */}
-        {selectedPlan && selectedProvider && <div className="mb-8">
-            <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
-              <CardHeader>
-                <CardTitle className="text-white">支付摘要</CardTitle>
-                <CardDescription className="text-gray-300">确认您的订阅信息</CardDescription>
-              </CardHeader>
-              <CardContent>
-                <div className="space-y-4">
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">订阅计划:</span>
-                    <span className="text-white font-medium">{selectedPlan.name}</span>
+          </CardHeader>
+          <CardContent>
+            <div className="space-y-4">
+              {subscriptions.map(subscription => <div key={subscription._id} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+                  <div>
+                    <div className="text-white font-semibold">
+                      {subscription.planId === 'basic' ? '基础版' : subscription.planId === 'pro' ? '专业版' : '企业版'}
+                    </div>
+                    <div className="text-gray-400 text-sm">
+                      ¥{subscription.amount} - {new Date(subscription.createdAt).toLocaleDateString('zh-CN')}
+                    </div>
                   </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">支付方式:</span>
-                    <span className="text-white font-medium">{paymentProviders.find(p => p.type === selectedProvider)?.name}</span>
-                  </div>
-                  <div className="flex justify-between">
-                    <span className="text-gray-300">金额:</span>
-                    <span className="text-white font-bold text-xl">¥{selectedPlan.price / 100}</span>
-                  </div>
-                  <Button onClick={handlePayment} disabled={processingPayment} className="w-full bg-red-500 hover:bg-red-600 disabled:opacity-50">
-                    {processingPayment ? '处理中...' : '确认支付'}
-                  </Button>
-                </div>
-              </CardContent>
-            </Card>
-          </div>}
+                  <Badge className={`${subscription.status === 'active' ? 'bg-green-500' : subscription.status === 'pending' ? 'bg-yellow-500' : subscription.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'} text-white`}>
+                    {subscription.status === 'active' ? '已激活' : subscription.status === 'pending' ? '待支付' : subscription.status === 'failed' ? '支付失败' : '已取消'}
+                  </Badge>
+                </div>)}
+            </div>
+          </CardContent>
+        </Card>
       </div>
     </div>;
 }
