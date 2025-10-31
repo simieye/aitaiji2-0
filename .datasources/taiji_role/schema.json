@@ -1,0 +1,59 @@
+
+{
+  "name": "taiji_role",
+  "title": "角色表",
+  "schemas": [
+    {
+      "name": "name",
+      "title": "角色名称",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "角色描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "level",
+      "title": "角色级别",
+      "type": "String"
+    },
+    {
+      "name": "permissions",
+      "title": "权限列表",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "isSystem",
+      "title": "是否系统角色",
+      "type": "Boolean"
+    },
+    {
+      "name": "isActive",
+      "title": "是否激活",
+      "type": "Boolean"
+    },
+    {
+      "name": "userCount",
+      "title": "用户数量",
+      "type": "Number"
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

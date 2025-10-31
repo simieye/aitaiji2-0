@@ -1,87 +1,110 @@
 // @ts-ignore;
 import React from 'react';
 // @ts-ignore;
-import { Card, CardContent, CardHeader, CardTitle, Badge, Button } from '@/components/ui';
+import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 // @ts-ignore;
-import { Calendar, CreditCard, CheckCircle, AlertCircle } from 'lucide-react';
+import { CreditCard, Calendar, AlertCircle } from 'lucide-react';
 
 export function CurrentSubscription({
   subscription,
-  onManage
+  onCancel
 }) {
-  if (!subscription) return null;
-  const getStatusBadge = status => {
-    const statusMap = {
-      active: {
-        color: 'bg-green-500',
-        text: '活跃',
-        icon: <CheckCircle className="w-4 h-4" />
-      },
-      trialing: {
-        color: 'bg-blue-500',
-        text: '试用中',
-        icon: <Calendar className="w-4 h-4" />
-      },
-      past_due: {
-        color: 'bg-yellow-500',
-        text: '逾期',
-        icon: <AlertCircle className="w-4 h-4" />
-      },
-      canceled: {
-        color: 'bg-red-500',
-        text: '已取消',
-        icon: <AlertCircle className="w-4 h-4" />
-      },
-      pending: {
-        color: 'bg-gray-500',
-        text: '待处理',
-        icon: <Calendar className="w-4 h-4" />
-      }
-    };
-    return statusMap[status] || statusMap.pending;
+  const getStatusColor = status => {
+    switch (status) {
+      case 'active':
+        return 'bg-green-500';
+      case 'pending':
+        return 'bg-yellow-500';
+      case 'cancelled':
+        return 'bg-red-500';
+      default:
+        return 'bg-gray-500';
+    }
   };
-  const status = getStatusBadge(subscription.status);
-  const plan = subscription.plan || {};
-  return <Card className="bg-gray-900/50 backdrop-blur border-gray-700 mb-8">
+  const getStatusText = status => {
+    switch (status) {
+      case 'active':
+        return '已激活';
+      case 'pending':
+        return '待支付';
+      case 'cancelled':
+        return '已取消';
+      default:
+        return '未知';
+    }
+  };
+  const getPlanName = planId => {
+    switch (planId) {
+      case 'basic':
+        return '基础版';
+      case 'pro':
+        return '专业版';
+      case 'enterprise':
+        return '企业版';
+      default:
+        return '未知计划';
+    }
+  };
+  return <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
       <CardHeader>
-        <div className="flex items-center justify-between">
-          <CardTitle className="text-white">当前订阅</CardTitle>
-          <Badge className={`${status.color} text-white flex items-center gap-1`}>
-            {status.icon}
-            {status.text}
+        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+          <div className="flex items-center space-x-3">
+            <CreditCard className="w-5 h-5 sm:w-6 sm:h-6 text-red-500" />
+            <CardTitle className="text-white text-lg sm:text-xl">当前订阅</CardTitle>
+          </div>
+          <Badge className={`${getStatusColor(subscription.status)} text-white text-xs sm:text-sm`}>
+            {getStatusText(subscription.status)}
           </Badge>
         </div>
       </CardHeader>
-      
       <CardContent>
-        <div className="grid md:grid-cols-3 gap-6">
-          <div>
-            <h4 className="text-gray-400 text-sm mb-1">套餐</h4>
-            <p className="text-white text-lg font-semibold">{plan.name}</p>
+        <div className="space-y-4">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div>
+              <div className="text-gray-400 text-sm mb-1">订阅计划</div>
+              <div className="text-white font-semibold text-sm sm:text-base">{getPlanName(subscription.planId)}</div>
+            </div>
+            <div>
+              <div className="text-gray-400 text-sm mb-1">订阅金额</div>
+              <div className="text-white font-semibold text-sm sm:text-base">¥{subscription.amount}/月</div>
+            </div>
+            <div>
+              <div className="text-gray-400 text-sm mb-1">开始时间</div>
+              <div className="text-white font-semibold text-sm sm:text-base">
+                {new Date(subscription.createdAt).toLocaleDateString('zh-CN')}
+              </div>
+            </div>
+            <div>
+              <div className="text-gray-400 text-sm mb-1">下次续费</div>
+              <div className="text-white font-semibold text-sm sm:text-base">
+                {new Date(subscription.updatedAt).toLocaleDateString('zh-CN')}
+              </div>
+            </div>
           </div>
           
-          <div>
-            <h4 className="text-gray-400 text-sm mb-1">价格</h4>
-            <p className="text-white text-lg font-semibold">
-              ${plan.price}/{plan.interval}
-            </p>
-          </div>
-          
-          <div>
-            <h4 className="text-gray-400 text-sm mb-1">到期时间</h4>
-            <p className="text-white text-lg font-semibold">
-              {subscription.current_period_end ? new Date(subscription.current_period_end).toLocaleDateString() : '永久有效'}
-            </p>
-          </div>
-        </div>
-
-        <div className="mt-6 flex gap-4">
-          <Button variant="outline" className="border-gray-600 text-white hover:bg-gray-800" onClick={onManage}>
-            管理订阅
-          </Button>
-          <Button variant="outline" className="border-red-500 text-red-500 hover:bg-red-500 hover:text-white">
-            取消订阅
-          </Button>
+          {subscription.status === 'active' && <div className="pt-4 border-t border-gray-700">
+              <div className="flex items-center space-x-2 mb-3">
+                <Calendar className="w-4 h-4 sm:w-5 sm:h-5 text-blue-500" />
+                <span className="text-gray-300 text-sm sm:text-base">
+                  您的订阅将在 {new Date(subscription.updatedAt).toLocaleDateString('zh-CN')} 自动续费
+                </span>
+              </div>
+              <Button onClick={() => onCancel(subscription._id)} variant="outline" className="w-full sm:w-auto border-red-500 text-red-500 hover:bg-red-500 hover:text-white text-sm sm:text-base">
+                取消订阅
+              </Button>
+            </div>}
+            
+          {subscription.status === 'pending' && <div className="pt-4 border-t border-gray-700">
+              <div className="flex items-center space-x-2 mb-3">
+                <AlertCircle className="w-4 h-4 sm:w-5 sm:h-5 text-yellow-500" />
+                <span className="text-gray-300 text-sm sm:text-base">
+                  订阅待支付，请完成支付以激活服务
+                </span>
+              </div>
+              <Button className="w-full sm:w-auto bg-red-500 hover:bg-red-600 text-sm sm:text-base">
+                立即支付
+              </Button>
+            </div>}
         </div>
       </CardContent>
     </Card>;

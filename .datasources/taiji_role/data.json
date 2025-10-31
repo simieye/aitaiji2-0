@@ -1,0 +1,159 @@
+
+[
+  {
+    "_id": "role_admin",
+    "name": "admin",
+    "description": "超级管理员，拥有系统所有权限",
+    "level": "admin",
+    "permissions": [
+      "user_read", "user_create", "user_update", "user_delete",
+      "role_read", "role_create", "role_update", "role_delete",
+      "content_read", "content_create", "content_update", "content_delete",
+      "system_config", "system_monitor", "system_backup",
+      "payment_read", "payment_create", "payment_update", "payment_delete",
+      "subscription_read", "subscription_create", "subscription_update", "subscription_delete",
+      "experiment_read", "experiment_create", "experiment_update", "experiment_delete",
+      "analytics_read", "analytics_export", "feature_flag_manage"
+    ],
+    "isSystem": true,
+    "isActive": true,
+    "userCount": 1,
+    "tags": ["系统", "管理员", "超级权限"],
+    "metadata": {
+      "category": "system",
+      "priority": "highest",
+      "description": "系统内置超级管理员角色，不可删除"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "role_manager",
+    "name": "manager",
+    "description": "管理员，拥有大部分管理权限",
+    "level": "manager",
+    "permissions": [
+      "user_read", "user_create", "user_update",
+      "role_read", "role_create", "role_update",
+      "content_read", "content_create", "content_update", "content_delete",
+      "system_monitor",
+      "payment_read", "payment_create", "payment_update",
+      "subscription_read", "subscription_create", "subscription_update",
+      "experiment_read", "experiment_create", "experiment_update",
+      "analytics_read", "analytics_export"
+    ],
+    "isSystem": true,
+    "isActive": true,
+    "userCount": 3,
+    "tags": ["系统", "管理员", "管理权限"],
+    "metadata": {
+      "category": "system",
+      "priority": "high",
+      "description": "系统内置管理员角色"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "role_user",
+    "name": "user",
+    "description": "普通用户，拥有基本使用权限",
+    "level": "user",
+    "permissions": [
+      "user_read",
+      "content_read",
+      "payment_read", "payment_create",
+      "subscription_read", "subscription_create",
+      "experiment_read"
+    ],
+    "isSystem": true,
+    "isActive": true,
+    "userCount": 10,
+    "tags": ["系统", "用户", "基础权限"],
+    "metadata": {
+      "category": "system",
+      "priority": "normal",
+      "description": "系统内置普通用户角色"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "role_developer",
+    "name": "developer",
+    "description": "开发者，拥有开发和测试权限",
+    "level": "manager",
+    "permissions": [
+      "user_read", "user_update",
+      "role_read",
+      "content_read", "content_create", "content_update",
+      "system_monitor", "system_config",
+      "payment_read",
+      "subscription_read",
+      "experiment_read", "experiment_create", "experiment_update", "experiment_delete",
+      "analytics_read", "analytics_export",
+      "feature_flag_manage"
+    ],
+    "isSystem": false,
+    "isActive": true,
+    "userCount": 2,
+    "tags": ["开发", "技术", "实验权限"],
+    "metadata": {
+      "category": "technical",
+      "priority": "high",
+      "description": "开发者角色，专注于系统开发和实验"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "role_analyst",
+    "name": "analyst",
+    "description": "数据分析师，拥有数据分析权限",
+    "level": "user",
+    "permissions": [
+      "user_read",
+      "content_read",
+      "payment_read",
+      "subscription_read",
+      "experiment_read",
+      "analytics_read", "analytics_export"
+    ],
+    "isSystem": false,
+    "isActive": true,
+    "userCount": 1,
+    "tags": ["分析", "数据", "报表权限"],
+    "metadata": {
+      "category": "business",
+      "priority": "normal",
+      "description": "数据分析师角色，专注于数据分析和报表"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "role_support",
+    "name": "support",
+    "description": "客服支持，拥有客户服务权限",
+    "level": "user",
+    "permissions": [
+      "user_read", "user_update",
+      "content_read", "content_create", "content_update",
+      "payment_read", "payment_update",
+      "subscription_read", "subscription_update",
+      "analytics_read"
+    ],
+    "isSystem": false,
+    "isActive": true,
+    "userCount": 2,
+    "tags": ["客服", "支持", "服务权限"],
+    "metadata": {
+      "category": "service",
+      "priority": "normal",
+      "description": "客服支持角色，专注于客户服务"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

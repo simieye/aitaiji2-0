@@ -3,96 +3,78 @@ import React from 'react';
 // @ts-ignore;
 import { Card, CardContent, CardDescription, CardHeader, CardTitle, Button, Badge } from '@/components/ui';
 // @ts-ignore;
-import { Download, Eye, Calendar, User, Tag, FileText } from 'lucide-react';
+import { Download, ExternalLink, FileText, BookOpen, Code, Video } from 'lucide-react';
 
 export function ResourceItem({
   resource,
-  type,
   onDownload,
-  onView
+  onViewExternal,
+  featured = false
 }) {
-  const getIcon = () => {
+  const getTypeIcon = type => {
     switch (type) {
-      case 'case':
-        return <FileText className="w-5 h-5 text-blue-500" />;
-      case 'whitepaper':
-        return <FileText className="w-5 h-5 text-purple-500" />;
+      case '文档':
+        return <FileText className="w-5 h-5" />;
+      case '教程':
+        return <BookOpen className="w-5 h-5" />;
+      case 'API文档':
+        return <Code className="w-5 h-5" />;
+      case '视频':
+        return <Video className="w-5 h-5" />;
       default:
-        return <FileText className="w-5 h-5 text-gray-500" />;
+        return <FileText className="w-5 h-5" />;
     }
   };
-  const getTypeLabel = () => {
-    switch (type) {
-      case 'case':
-        return '案例研究';
-      case 'whitepaper':
-        return '技术白皮书';
-      case 'guide':
-        return '最佳实践';
-      default:
-        return '资源';
-    }
-  };
-  const formatDate = dateString => {
-    return new Date(dateString).toLocaleDateString('zh-CN', {
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
-    });
-  };
-  return <Card className="bg-gray-900/50 backdrop-blur border-gray-700 hover:border-red-500/50 transition-all duration-300">
+  return <Card className={`bg-gray-900/50 backdrop-blur border-gray-700 hover:border-red-500/50 transition-all duration-300 ${featured ? 'lg:col-span-2' : ''}`}>
       <CardHeader>
-        <div className="flex items-start justify-between">
-          <div className="flex-1">
-            <div className="flex items-center space-x-2 mb-2">
-              {getIcon()}
-              <Badge className={`${type === 'case' ? 'bg-blue-500' : type === 'whitepaper' ? 'bg-purple-500' : 'bg-gray-500'} text-white`}>
-                {getTypeLabel()}
-              </Badge>
+        <div className="flex items-start justify-between mb-4">
+          <div className="flex items-center space-x-3">
+            <div className="w-10 h-10 sm:w-12 sm:h-12 bg-red-500/20 rounded-lg flex items-center justify-center">
+              <div className="text-red-500">
+                {resource.icon || getTypeIcon(resource.type)}
+              </div>
             </div>
-            <CardTitle className="text-white text-lg mb-2">
-              {resource.title || resource.name}
-            </CardTitle>
-            <CardDescription className="text-gray-300 text-sm">
-              {resource.description || resource.summary}
-            </CardDescription>
+            <div>
+              <Badge className="bg-blue-500 text-white text-xs sm:text-sm mb-1">
+                {resource.type}
+              </Badge>
+              {resource.featured && <Badge className="bg-red-500 text-white text-xs sm:text-sm ml-2">
+                精选
+              </Badge>}
+            </div>
           </div>
         </div>
+        <CardTitle className={`text-white mb-2 ${featured ? 'text-xl sm:text-2xl' : 'text-lg sm:text-xl'}`}>
+          {resource.title}
+        </CardTitle>
+        <CardDescription className={`text-gray-300 ${featured ? 'text-base sm:text-lg' : 'text-sm sm:text-base'}`}>
+          {resource.description}
+        </CardDescription>
       </CardHeader>
-      
       <CardContent>
-        <div className="space-y-3">
-          <div className="flex items-center space-x-4 text-sm text-gray-400">
-            <div className="flex items-center">
-              <Calendar className="w-4 h-4 mr-1" />
-              {formatDate(resource.createdAt)}
-            </div>
-            <div className="flex items-center">
-              <User className="w-4 h-4 mr-1" />
-              {resource.author || 'AI太极团队'}
-            </div>
-            {resource.category && <div className="flex items-center">
-                <Tag className="w-4 h-4 mr-1" />
-                <Badge variant="outline" className="border-gray-600 text-gray-400">
-                  {resource.category}
-                </Badge>
-              </div>}
+        <div className="flex items-center justify-between text-gray-400 text-xs sm:text-sm mb-4">
+          <div className="flex items-center space-x-4">
+            <span>{resource.category}</span>
+            <span>{resource.size}</span>
+            <span>{resource.format}</span>
           </div>
-
-          <div className="flex space-x-2">
-            <Button onClick={() => onDownload(resource)} className="flex-1 bg-red-500 hover:bg-red-600" size="sm">
-              <Download className="w-4 h-4 mr-2" />
-              下载
-            </Button>
-            <Button onClick={() => onView(resource)} variant="outline" className="flex-1 border-gray-600 text-white hover:bg-gray-700" size="sm">
-              <Eye className="w-4 h-4 mr-2" />
-              预览
-            </Button>
-          </div>
-
-          {resource.downloadCount && <div className="text-xs text-gray-400">
-              下载次数: {resource.downloadCount}
-            </div>}
+        </div>
+        
+        {resource.tags && resource.tags.length > 0 && <div className="flex flex-wrap gap-1 sm:gap-2 mb-4">
+            {resource.tags.map((tag, index) => <span key={index} className="px-2 py-1 bg-gray-800 text-gray-300 rounded text-xs">
+                {tag}
+              </span>)}
+          </div>}
+        
+        <div className="flex flex-col sm:flex-row gap-2">
+          <Button onClick={() => onDownload(resource)} className="flex-1 bg-red-500 hover:bg-red-600 text-sm sm:text-base">
+            <Download className="w-4 h-4 mr-2" />
+            下载
+          </Button>
+          {resource.externalUrl && <Button onClick={() => onViewExternal(resource)} variant="outline" className="flex-1 border-gray-600 text-white hover:bg-gray-700 text-sm sm:text-base">
+              <ExternalLink className="w-4 h-4 mr-2" />
+            查看
+          </Button>}
         </div>
       </CardContent>
     </Card>;

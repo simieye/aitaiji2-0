@@ -1,0 +1,79 @@
+
+{
+  "name": "taiji_permission",
+  "title": "权限表",
+  "schemas": [
+    {
+      "name": "code",
+      "title": "权限代码",
+      "type": "String"
+    },
+    {
+      "name": "name",
+      "title": "权限名称",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "权限描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "category",
+      "title": "权限分类",
+      "type": "String"
+    },
+    {
+      "name": "module",
+      "title": "所属模块",
+      "type": "String"
+    },
+    {
+      "name": "action",
+      "title": "操作类型",
+      "type": "String"
+    },
+    {
+      "name": "resource",
+      "title": "资源对象",
+      "type": "String"
+    },
+    {
+      "name": "level",
+      "title": "权限级别",
+      "type": "String"
+    },
+    {
+      "name": "isSystem",
+      "title": "是否系统权限",
+      "type": "Boolean"
+    },
+    {
+      "name": "isActive",
+      "title": "是否激活",
+      "type": "Boolean"
+    },
+    {
+      "name": "dependencies",
+      "title": "依赖权限",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "tags",
+      "title": "标签",
+      "type": "Array",
+      "items": {
+        "type": "String"
+      }
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

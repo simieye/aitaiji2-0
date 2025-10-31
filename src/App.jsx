@@ -12,6 +12,7 @@ import { Layout } from '@/components/Layout';
 // @ts-ignore;
 import { ExperimentProvider } from '@/components/ExperimentProvider';
 // @ts-ignore;
+import { I18nProvider } from '@/components/I18nProvider';
 
 // Lazy load pages for better performance
 const IndexPage = lazy(() => import('./pages/index'));
@@ -24,6 +25,9 @@ const ChatPage = lazy(() => import('./pages/chat'));
 const SubscriptionPage = lazy(() => import('./pages/subscription'));
 const DashboardPage = lazy(() => import('./pages/dashboard'));
 const ExperimentsPage = lazy(() => import('./pages/experiments'));
+const RolesPage = lazy(() => import('./pages/roles'));
+const ExportPage = lazy(() => import('./pages/export'));
+const I18nPage = lazy(() => import('./pages/i18n'));
 // Page component mapping
 const pageComponents = {
   index: IndexPage,
@@ -35,13 +39,16 @@ const pageComponents = {
   chat: ChatPage,
   subscription: SubscriptionPage,
   dashboard: DashboardPage,
-  experiments: ExperimentsPage
+  experiments: ExperimentsPage,
+  roles: RolesPage,
+  export: ExportPage,
+  i18n: I18nPage
 };
 // Loading component
 const LoadingSpinner = () => <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white flex items-center justify-center">
     <div className="text-center">
       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
-      <p className="text-white mt-4">正在加载...</p>
+      <p className="text-white mt-4">Loading...</p>
     </div>
   </div>;
 // Error fallback component
@@ -99,13 +106,15 @@ function AppContent(props) {
   }, [toast]);
   return <ErrorBoundary fallback={<ErrorFallback />}>
       <PerformanceMonitor>
-        <ExperimentProvider $w={$w}>
-          <Layout $w={$w} currentPage={currentPage}>
-            <Suspense fallback={<LoadingSpinner />}>
-              <PageComponent $w={$w} />
-            </Suspense>
-          </Layout>
-        </ExperimentProvider>
+        <I18nProvider>
+          <ExperimentProvider $w={$w}>
+            <Layout $w={$w} currentPage={currentPage}>
+              <Suspense fallback={<LoadingSpinner />}>
+                <PageComponent $w={$w} />
+              </Suspense>
+            </Layout>
+          </ExperimentProvider>
+        </I18nProvider>
       </PerformanceMonitor>
     </ErrorBoundary>;
 }

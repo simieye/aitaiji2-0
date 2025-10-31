@@ -17,6 +17,8 @@ import { SubscriptionCard } from '@/components/SubscriptionCard';
 import { CurrentSubscription } from '@/components/CurrentSubscription';
 // @ts-ignore;
 import { PaymentStatusSync } from '@/components/PaymentStatusSync';
+// @ts-ignore;
+import { useI18n } from '@/components/I18nProvider';
 function SubscriptionContent(props) {
   const {
     $w,
@@ -30,6 +32,9 @@ function SubscriptionContent(props) {
   const {
     toast
   } = useToast();
+  const {
+    t
+  } = useI18n();
 
   // 获取实验变体
   const pricingExperiment = useExperiment('pricing_display');
@@ -262,29 +267,31 @@ function SubscriptionContent(props) {
   };
   if (loading) {
     return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
-        <div className="container mx-auto px-4 py-20">
+        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
-            <p className="text-white mt-4">正在加载订阅信息...</p>
+            <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-b-2 border-red-500 mx-auto"></div>
+            <p className="text-white mt-4 text-sm sm:text-base">{t('common.loading')}</p>
           </div>
         </div>
       </div>;
   }
   return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
-      <div className="container mx-auto px-4 py-8">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
         {/* Header */}
-        <div className="text-center py-20">
-          <h1 className="text-5xl font-bold text-white mb-6">
-            订阅管理
-            <span className="text-red-500">灵活选择</span>
+        <div className="text-center py-12 sm:py-16 lg:py-20">
+          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 sm:mb-6">
+            {t('subscription.title', '订阅管理')}
+            <span className="text-red-500 block mt-2">{t('subscription.subtitle', '灵活选择')}</span>
           </h1>
-          <p className="text-xl text-gray-300 mb-8 max-w-3xl mx-auto">
+          <p className="text-base sm:text-lg lg:text-xl text-gray-300 mb-6 sm:mb-8 max-w-3xl mx-auto px-4">
             选择最适合您的订阅计划，享受AI太极的完整功能
           </p>
         </div>
 
         {/* Payment Status Sync */}
-        <PaymentStatusSync $w={$w} subscriptions={subscriptions} onStatusUpdate={loadSubscriptionData} />
+        <div className="mb-8">
+          <PaymentStatusSync $w={$w} subscriptions={subscriptions} onStatusUpdate={loadSubscriptionData} />
+        </div>
 
         {/* Current Subscription */}
         {currentSubscription && <div className="mb-8">
@@ -292,7 +299,7 @@ function SubscriptionContent(props) {
           </div>}
 
         {/* Subscription Plans */}
-        <div className="grid md:grid-cols-3 gap-8 mb-8">
+        <div className="grid md:grid-cols-3 gap-4 sm:gap-6 lg:gap-8 mb-8">
           {[{
           id: 'basic',
           name: '基础版',
@@ -317,26 +324,26 @@ function SubscriptionContent(props) {
         {/* Payment History */}
         <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
           <CardHeader>
-            <div className="flex items-center justify-between">
-              <CardTitle className="text-white">支付记录</CardTitle>
-              <Button onClick={handleRefreshPayments} disabled={refreshing} variant="outline" className="border-gray-600 text-white hover:bg-gray-700">
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+              <CardTitle className="text-white text-lg sm:text-xl">支付记录</CardTitle>
+              <Button onClick={handleRefreshPayments} disabled={refreshing} variant="outline" className="border-gray-600 text-white hover:bg-gray-700 w-full sm:w-auto">
                 <RefreshCw className={`w-4 h-4 mr-2 ${refreshing ? 'animate-spin' : ''}`} />
                 刷新
               </Button>
             </div>
           </CardHeader>
           <CardContent>
-            <div className="space-y-4">
-              {subscriptions.map(subscription => <div key={subscription._id} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
-                  <div>
-                    <div className="text-white font-semibold">
+            <div className="space-y-3 sm:space-y-4">
+              {subscriptions.map(subscription => <div key={subscription._id} className="flex flex-col sm:flex-row sm:items-center justify-between p-3 sm:p-4 bg-gray-800 rounded-lg gap-2 sm:gap-0">
+                  <div className="flex-1">
+                    <div className="text-white font-semibold text-sm sm:text-base">
                       {subscription.planId === 'basic' ? '基础版' : subscription.planId === 'pro' ? '专业版' : '企业版'}
                     </div>
-                    <div className="text-gray-400 text-sm">
+                    <div className="text-gray-400 text-xs sm:text-sm">
                       ¥{subscription.amount} - {new Date(subscription.createdAt).toLocaleDateString('zh-CN')}
                     </div>
                   </div>
-                  <Badge className={`${subscription.status === 'active' ? 'bg-green-500' : subscription.status === 'pending' ? 'bg-yellow-500' : subscription.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'} text-white`}>
+                  <Badge className={`${subscription.status === 'active' ? 'bg-green-500' : subscription.status === 'pending' ? 'bg-yellow-500' : subscription.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'} text-white text-xs sm:text-sm`}>
                     {subscription.status === 'active' ? '已激活' : subscription.status === 'pending' ? '待支付' : subscription.status === 'failed' ? '支付失败' : '已取消'}
                   </Badge>
                 </div>)}
