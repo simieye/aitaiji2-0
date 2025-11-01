@@ -41,7 +41,7 @@
     {
       "name": "level",
       "title": "权限级别",
-      "type": "String"
+      "type": "Number"
     },
     {
       "name": "isSystem",
@@ -49,17 +49,9 @@
       "type": "Boolean"
     },
     {
-      "name": "isActive",
-      "title": "是否激活",
-      "type": "Boolean"
-    },
-    {
-      "name": "dependencies",
-      "title": "依赖权限",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
+      "name": "status",
+      "title": "状态",
+      "type": "String"
     },
     {
       "name": "tags",
@@ -68,11 +60,6 @@
       "items": {
         "type": "String"
       }
-    },
-    {
-      "name": "metadata",
-      "title": "元数据",
-      "type": "Object"
     }
   ]
 }

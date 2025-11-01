@@ -19,14 +19,6 @@
       "type": "String"
     },
     {
-      "name": "roles",
-      "title": "角色列表",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
-    },
-    {
       "name": "avatar",
       "title": "头像",
       "type": "Image"
@@ -50,58 +42,6 @@
       "name": "status",
       "title": "状态",
       "type": "String"
-    },
-    {
-      "name": "userId",
-      "title": "用户ID",
-      "type": "String"
-    },
-    {
-      "name": "phone",
-      "title": "电话",
-      "type": "String"
-    },
-    {
-      "name": "department",
-      "title": "部门",
-      "type": "String"
-    },
-    {
-      "name": "position",
-      "title": "职位",
-      "type": "String"
-    },
-    {
-      "name": "lastLoginAt",
-      "title": "最后登录时间",
-      "type": "DateTime",
-      "format": "timestamp-ms"
-    },
-    {
-      "name": "isActive",
-      "title": "是否激活",
-      "type": "Boolean"
-    },
-    {
-      "name": "permissions",
-      "title": "直接权限",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
-    },
-    {
-      "name": "tags",
-      "title": "标签",
-      "type": "Array",
-      "items": {
-        "type": "String"
-      }
-    },
-    {
-      "name": "metadata",
-      "title": "元数据",
-      "type": "Object"
     }
   ]
 }

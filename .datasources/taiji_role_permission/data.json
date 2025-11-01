@@ -1,0 +1,304 @@
+
+[
+  {
+    "_id": "rp_001",
+    "roleId": "role_001",
+    "permissionId": "perm_001",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "system_init",
+      "isCore": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_002",
+    "roleId": "role_001",
+    "permissionId": "perm_002",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "system_init",
+      "isCore": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_003",
+    "roleId": "role_001",
+    "permissionId": "perm_003",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "system_init",
+      "isCore": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_004",
+    "roleId": "role_001",
+    "permissionId": "perm_007",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "system_init",
+      "isCore": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_005",
+    "roleId": "role_002",
+    "permissionId": "perm_001",
+    "grantedBy": "user_001",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {
+      "excludeSelf": false,
+      "excludeAdmins": true
+    },
+    "scope": "limited",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_006",
+    "roleId": "role_002",
+    "permissionId": "perm_002",
+    "grantedBy": "user_001",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {
+      "excludeSelf": true,
+      "excludeAdmins": true
+    },
+    "scope": "limited",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_007",
+    "roleId": "role_002",
+    "permissionId": "perm_009",
+    "grantedBy": "user_001",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_008",
+    "roleId": "role_002",
+    "permissionId": "perm_012",
+    "grantedBy": "user_001",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_009",
+    "roleId": "role_003",
+    "permissionId": "perm_008",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {
+      "ownContentOnly": true
+    },
+    "scope": "self",
+    "metadata": {
+      "source": "auto_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_010",
+    "roleId": "role_003",
+    "permissionId": "perm_019",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {
+      "ownProfileOnly": true
+    },
+    "scope": "self",
+    "metadata": {
+      "source": "auto_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_011",
+    "roleId": "role_003",
+    "permissionId": "perm_020",
+    "grantedBy": "system",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {
+      "ownProfileOnly": true
+    },
+    "scope": "self",
+    "metadata": {
+      "source": "auto_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_012",
+    "roleId": "role_004",
+    "permissionId": "perm_008",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_013",
+    "roleId": "role_004",
+    "permissionId": "perm_010",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_014",
+    "roleId": "role_004",
+    "permissionId": "perm_011",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_015",
+    "roleId": "role_005",
+    "permissionId": "perm_008",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_016",
+    "roleId": "role_005",
+    "permissionId": "perm_012",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_017",
+    "roleId": "role_005",
+    "permissionId": "perm_013",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "rp_018",
+    "roleId": "role_005",
+    "permissionId": "perm_021",
+    "grantedBy": "user_002",
+    "grantedAt": 1704067200000,
+    "isActive": true,
+    "conditions": {},
+    "scope": "all",
+    "metadata": {
+      "source": "admin_grant",
+      "isCore": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

@@ -1,0 +1,50 @@
+
+{
+  "name": "taiji_user_role",
+  "title": "用户角色关联表",
+  "schemas": [
+    {
+      "name": "userId",
+      "title": "用户ID",
+      "type": "String"
+    },
+    {
+      "name": "roleId",
+      "title": "角色ID",
+      "type": "String"
+    },
+    {
+      "name": "assignedBy",
+      "title": "分配者",
+      "type": "String"
+    },
+    {
+      "name": "assignedAt",
+      "title": "分配时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "expiresAt",
+      "title": "过期时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "isActive",
+      "title": "是否激活",
+      "type": "Boolean"
+    },
+    {
+      "name": "reason",
+      "title": "分配原因",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

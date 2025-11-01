@@ -29,8 +29,6 @@ import { AutomationStats } from '@/components/AutomationStats';
 import { AutomationControlPanel } from '@/components/AutomationControlPanel';
 // @ts-ignore;
 import { PaymentStatusSync } from '@/components/PaymentStatusSync';
-// @ts-ignore;
-import { useI18n } from '@/components/I18nProvider';
 function DashboardContent(props) {
   const {
     $w,
@@ -64,9 +62,6 @@ function DashboardContent(props) {
   const {
     toast
   } = useToast();
-  const {
-    t
-  } = useI18n();
 
   // 获取实验变体
   const dashboardExperiment = useExperiment('dashboard_layout');
@@ -404,86 +399,136 @@ function DashboardContent(props) {
   };
   if (loading) {
     return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-20">
+        <div className="container mx-auto px-4 py-20">
           <div className="text-center">
-            <div className="animate-spin rounded-full h-12 w-12 sm:h-16 sm:w-16 border-b-2 border-red-500 mx-auto"></div>
-            <p className="text-white mt-4 text-sm sm:text-base">{t('common.loading')}</p>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
+            <p className="text-white mt-4">正在加载仪表板...</p>
           </div>
         </div>
       </div>;
   }
   return <div style={style} className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white">
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
+      <div className="container mx-auto px-4 py-8">
         {/* Header */}
-        <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 gap-4">
+        <div className="flex items-center justify-between mb-8">
           <div>
-            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2">{t('dashboard.title', '系统仪表板')}</h1>
-            <p className="text-gray-300 text-sm sm:text-base">{t('dashboard.description', '实时监控系统状态和数据')}</p>
+            <h1 className="text-4xl font-bold text-white mb-2">系统仪表板</h1>
+            <p className="text-gray-300">实时监控和管理您的AI太极系统</p>
           </div>
-          <Button onClick={loadDashboardData} variant="outline" className="border-gray-600 text-white hover:bg-gray-700 w-full sm:w-auto">
+          <Button onClick={loadDashboardData} className="bg-red-500 hover:bg-red-600">
             <RefreshCw className="w-4 h-4 mr-2" />
-            {t('common.refresh', '刷新')}
+            刷新数据
           </Button>
         </div>
 
         {/* Tabs */}
-        <div className="mb-6 sm:mb-8">
-          <div className="flex flex-wrap gap-2 bg-gray-800 p-1 rounded-lg">
-            {['overview', 'automation', 'payments', 'health'].map(tab => <Button key={tab} onClick={() => setActiveTab(tab)} variant={activeTab === tab ? 'default' : 'ghost'} className={`${activeTab === tab ? 'bg-red-500 text-white' : 'text-gray-300'} flex-1 sm:flex-none text-sm sm:text-base px-3 sm:px-4 py-2`}>
-                {tab === 'overview' ? t('dashboard.overview', '概览') : tab === 'automation' ? t('dashboard.automation', '自动化控制') : tab === 'payments' ? t('dashboard.payments', '支付管理') : t('dashboard.health', '系统健康')}
-              </Button>)}
+        <div className="mb-8">
+          <div className="flex space-x-1 bg-gray-800 p-1 rounded-lg">
+            <Button onClick={() => setActiveTab('overview')} variant={activeTab === 'overview' ? 'default' : 'ghost'} className={`${activeTab === 'overview' ? 'bg-red-500 text-white' : 'text-gray-300'}`}>
+              概览
+            </Button>
+            <Button onClick={() => setActiveTab('automation')} variant={activeTab === 'automation' ? 'default' : 'ghost'} className={`${activeTab === 'automation' ? 'bg-red-500 text-white' : 'text-gray-300'}`}>
+              自动化控制
+            </Button>
+            <Button onClick={() => setActiveTab('payments')} variant={activeTab === 'payments' ? 'default' : 'ghost'} className={`${activeTab === 'payments' ? 'bg-red-500 text-white' : 'text-gray-300'}`}>
+              支付管理
+            </Button>
+            <Button onClick={() => setActiveTab('health')} variant={activeTab === 'health' ? 'default' : 'ghost'} className={`${activeTab === 'health' ? 'bg-red-500 text-white' : 'text-gray-300'}`}>
+              系统健康
+            </Button>
           </div>
         </div>
 
         {/* Overview Tab */}
-        {activeTab === 'overview' && <div className="space-y-6 sm:space-y-8">
-            {/* Metrics Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6 gap-4 sm:gap-6">
-              <MetricCard title="总用户数" value={metrics.totalUsers.toLocaleString()} icon={<Users className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+12%" color="blue" />
-              <MetricCard title="AI代理" value={metrics.totalAgents.toLocaleString()} icon={<Zap className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+8%" color="green" />
-              <MetricCard title="工作流" value={metrics.totalWorkflows.toLocaleString()} icon={<Activity className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+15%" color="purple" />
-              <MetricCard title="活跃会话" value={metrics.activeSessions.toLocaleString()} icon={<TrendingUp className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+5%" color="orange" />
-              <MetricCard title="系统运行时间" value={`${metrics.systemUptime}%`} icon={<Shield className="w-4 h-4 sm:w-5 sm:h-5" />} trend="稳定" color="green" />
-              <MetricCard title="错误率" value={`${metrics.errorRate}%`} icon={<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5" />} trend="-2%" color="red" />
+        {activeTab === 'overview' && <div className="space-y-8">
+            {/* Metrics */}
+            <div className="grid md:grid-cols-3 gap-6">
+              <MetricCard title="总用户数" value={metrics.totalUsers.toLocaleString()} icon={<Users className="w-5 h-5" />} trend="+12%" />
+              <MetricCard title="智能代理" value={metrics.totalAgents.toLocaleString()} icon={<Zap className="w-5 h-5" />} trend="+8%" />
+              <MetricCard title="工作流" value={metrics.totalWorkflows.toLocaleString()} icon={<Activity className="w-5 h-5" />} trend="+15%" />
             </div>
 
-            {/* Charts and Real-time Monitor */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 sm:gap-8">
+            <div className="grid md:grid-cols-3 gap-6">
+              <MetricCard title="活跃会话" value={metrics.activeSessions.toLocaleString()} icon={<Users className="w-5 h-5" />} trend="+5%" />
+              <MetricCard title="系统可用性" value={`${metrics.systemUptime}%`} icon={<Shield className="w-5 h-5" />} trend="稳定" />
+              <MetricCard title="错误率" value={`${metrics.errorRate}%`} icon={<TrendingUp className="w-5 h-5" />} trend="-2%" />
+            </div>
+
+            {/* Payment Overview */}
+            <div className="grid md:grid-cols-4 gap-6">
+              <MetricCard title="总收入" value={`¥${paymentStats.totalRevenue.toLocaleString()}`} icon={<CreditCard className="w-5 h-5" />} trend="+15%" />
+              <MetricCard title="待处理" value={paymentStats.pendingPayments.toLocaleString()} icon={<Clock className="w-5 h-5" />} trend="待支付" />
+              <MetricCard title="失败支付" value={paymentStats.failedPayments.toLocaleString()} icon={<AlertCircle className="w-5 h-5" />} trend="需处理" />
+              <MetricCard title="成功率" value={`${(paymentStats.successRate * 100).toFixed(1)}%`} icon={<CheckCircle className="w-5 h-5" />} trend="稳定" />
+            </div>
+
+            {/* Charts */}
+            <div className="grid md:grid-cols-2 gap-8">
               <ChartContainer title="用户增长趋势" type="line" />
-              <RealTimeMonitor />
+              <ChartContainer title="支付收入趋势" type="bar" />
             </div>
 
-            {/* Alerts */}
-            <AlertPanel alerts={alerts} />
+            {/* Real-time Monitor */}
+            <RealTimeMonitor />
           </div>}
 
         {/* Automation Tab */}
-        {activeTab === 'automation' && <div className="space-y-6 sm:space-y-8">
-            <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 sm:gap-8">
-              <div className="lg:col-span-2">
-                <AutomationControlPanel onTriggerTask={handleTriggerTask} />
-              </div>
-              <AutomationStats stats={automationStats} />
-            </div>
-            <div className="grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 sm:gap-6">
-              {automationTasks.map(task => <AutomationTaskCard key={task._id} task={task} onRetry={handleRetryTask} onViewDetails={handleViewTaskDetails} />)}
-            </div>
+        {activeTab === 'automation' && <div className="space-y-8">
+            <AutomationStats stats={automationStats} />
+            <AutomationControlPanel onTriggerTask={handleTriggerTask} />
+            <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-white">最近任务</CardTitle>
+                <CardDescription className="text-gray-300">最近10条自动化任务执行状态</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="grid gap-4">
+                  {automationTasks.map(task => <AutomationTaskCard key={task._id} task={task} onRetry={handleRetryTask} onViewDetails={handleViewTaskDetails} />)}
+                  {automationTasks.length === 0 && <div className="text-center py-8">
+                      <div className="text-gray-400">
+                        <Activity className="w-16 h-16 mx-auto mb-4" />
+                        <h3 className="text-xl font-semibold text-white mb-2">暂无任务</h3>
+                        <p className="text-gray-400">使用上方按钮手动触发任务</p>
+                      </div>
+                    </div>}
+                </div>
+              </CardContent>
+            </Card>
           </div>}
 
         {/* Payments Tab */}
-        {activeTab === 'payments' && <div className="space-y-6 sm:space-y-8">
+        {activeTab === 'payments' && <div className="space-y-8">
             <PaymentStatusSync $w={$w} subscriptions={subscriptions} onStatusUpdate={loadDashboardData} />
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6">
-              <MetricCard title="总收入" value={`¥${paymentStats.totalRevenue.toLocaleString()}`} icon={<CreditCard className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+18%" color="green" />
-              <MetricCard title="待支付" value={paymentStats.pendingPayments} icon={<Clock className="w-4 h-4 sm:w-5 sm:h-5" />} trend="-3" color="yellow" />
-              <MetricCard title="支付失败" value={paymentStats.failedPayments} icon={<AlertCircle className="w-4 h-4 sm:w-5 sm:h-5" />} trend="-1" color="red" />
-              <MetricCard title="成功率" value={`${(paymentStats.successRate * 100).toFixed(1)}%`} icon={<CheckCircle className="w-4 h-4 sm:w-5 sm:h-5" />} trend="+2%" color="green" />
-            </div>
+            
+            <Card className="bg-gray-900/50 backdrop-blur border-gray-700">
+              <CardHeader>
+                <CardTitle className="text-white">支付记录</CardTitle>
+                <CardDescription className="text-gray-300">最近的支付交易记录</CardDescription>
+              </CardHeader>
+              <CardContent>
+                <div className="space-y-4">
+                  {subscriptions.slice(0, 10).map(subscription => <div key={subscription._id} className="flex items-center justify-between p-4 bg-gray-800 rounded-lg">
+                      <div>
+                        <div className="text-white font-semibold">
+                          {subscription.planId === 'basic' ? '基础版' : subscription.planId === 'pro' ? '专业版' : '企业版'}
+                        </div>
+                        <div className="text-gray-400 text-sm">
+                          ¥{subscription.amount} - {new Date(subscription.createdAt).toLocaleDateString('zh-CN')}
+                        </div>
+                      </div>
+                      <Badge className={`${subscription.status === 'active' ? 'bg-green-500' : subscription.status === 'pending' ? 'bg-yellow-500' : subscription.status === 'failed' ? 'bg-red-500' : 'bg-gray-500'} text-white`}>
+                        {subscription.status === 'active' ? '已激活' : subscription.status === 'pending' ? '待支付' : subscription.status === 'failed' ? '支付失败' : '已取消'}
+                      </Badge>
+                    </div>)}
+                </div>
+              </CardContent>
+            </Card>
           </div>}
 
         {/* Health Tab */}
-        {activeTab === 'health' && <div className="space-y-6 sm:space-y-8">
-            <HealthMonitor />
+        {activeTab === 'health' && <div className="space-y-8">
+            <HealthMonitor $w={$w} />
+            <AlertPanel alerts={alerts} />
           </div>}
       </div>
     </div>;

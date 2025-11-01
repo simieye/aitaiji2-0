@@ -9,14 +9,14 @@
       "type": "String"
     },
     {
+      "name": "displayName",
+      "title": "显示名称",
+      "type": "String"
+    },
+    {
       "name": "description",
       "title": "角色描述",
       "type": "MultiLineString"
-    },
-    {
-      "name": "level",
-      "title": "角色级别",
-      "type": "String"
     },
     {
       "name": "permissions",
@@ -27,19 +27,34 @@
       }
     },
     {
+      "name": "userCount",
+      "title": "用户数量",
+      "type": "Number"
+    },
+    {
+      "name": "icon",
+      "title": "角色图标",
+      "type": "String"
+    },
+    {
+      "name": "color",
+      "title": "角色颜色",
+      "type": "String"
+    },
+    {
+      "name": "level",
+      "title": "角色级别",
+      "type": "Number"
+    },
+    {
       "name": "isSystem",
       "title": "是否系统角色",
       "type": "Boolean"
     },
     {
-      "name": "isActive",
-      "title": "是否激活",
-      "type": "Boolean"
-    },
-    {
-      "name": "userCount",
-      "title": "用户数量",
-      "type": "Number"
+      "name": "status",
+      "title": "状态",
+      "type": "String"
     },
     {
       "name": "tags",
@@ -48,11 +63,6 @@
       "items": {
         "type": "String"
       }
-    },
-    {
-      "name": "metadata",
-      "title": "元数据",
-      "type": "Object"
     }
   ]
 }

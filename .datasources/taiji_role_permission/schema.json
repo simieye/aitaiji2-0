@@ -1,0 +1,49 @@
+
+{
+  "name": "taiji_role_permission",
+  "title": "角色权限关联表",
+  "schemas": [
+    {
+      "name": "roleId",
+      "title": "角色ID",
+      "type": "String"
+    },
+    {
+      "name": "permissionId",
+      "title": "权限ID",
+      "type": "String"
+    },
+    {
+      "name": "grantedBy",
+      "title": "授权者",
+      "type": "String"
+    },
+    {
+      "name": "grantedAt",
+      "title": "授权时间",
+      "type": "DateTime",
+      "format": "timestamp-ms"
+    },
+    {
+      "name": "isActive",
+      "title": "是否激活",
+      "type": "Boolean"
+    },
+    {
+      "name": "conditions",
+      "title": "权限条件",
+      "type": "Object"
+    },
+    {
+      "name": "scope",
+      "title": "权限范围",
+      "type": "String"
+    },
+    {
+      "name": "metadata",
+      "title": "元数据",
+      "type": "Object"
+    }
+  ]
+}
+  

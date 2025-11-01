@@ -8,9 +8,10 @@ import CHAT from '../pages/chat.jsx';
 import SUBSCRIPTION from '../pages/subscription.jsx';
 import EXPERIMENTS from '../pages/experiments.jsx';
 import DASHBOARD from '../pages/dashboard.jsx';
-import ROLES from '../pages/roles.jsx';
-import EXPORT from '../pages/export.jsx';
-import I18N from '../pages/i18n.jsx';
+import PERMISSIONS from '../pages/permissions.jsx';
+import INTEGRATIONS from '../pages/integrations.jsx';
+import EXPORTS from '../pages/exports.jsx';
+import LANGUAGES from '../pages/languages.jsx';
 export const routers = [{
   id: "index",
   component: INDEX
@@ -42,12 +43,15 @@ export const routers = [{
   id: "dashboard",
   component: DASHBOARD
 }, {
-  id: "roles",
-  component: ROLES
+  id: "permissions",
+  component: PERMISSIONS
 }, {
-  id: "export",
-  component: EXPORT
+  id: "integrations",
+  component: INTEGRATIONS
 }, {
-  id: "i18n",
-  component: I18N
+  id: "exports",
+  component: EXPORTS
+}, {
+  id: "languages",
+  component: LANGUAGES
 }]

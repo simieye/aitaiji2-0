@@ -1,0 +1,101 @@
+
+[
+  {
+    "_id": "ur_001",
+    "userId": "user_001",
+    "roleId": "role_001",
+    "assignedBy": "system",
+    "assignedAt": 1704067200000,
+    "expiresAt": null,
+    "isActive": true,
+    "reason": "系统初始化，分配超级管理员角色",
+    "metadata": {
+      "source": "system_init",
+      "isPermanent": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "ur_002",
+    "userId": "user_002",
+    "roleId": "role_002",
+    "assignedBy": "user_001",
+    "assignedAt": 1704067200000,
+    "expiresAt": null,
+    "isActive": true,
+    "reason": "系统管理员分配管理员角色",
+    "metadata": {
+      "source": "admin_assignment",
+      "isPermanent": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "ur_003",
+    "userId": "user_003",
+    "roleId": "role_003",
+    "assignedBy": "system",
+    "assignedAt": 1704067200000,
+    "expiresAt": null,
+    "isActive": true,
+    "reason": "用户注册时自动分配普通用户角色",
+    "metadata": {
+      "source": "auto_assignment",
+      "isPermanent": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "ur_004",
+    "userId": "user_004",
+    "roleId": "role_003",
+    "assignedBy": "system",
+    "assignedAt": 1704067200000,
+    "expiresAt": null,
+    "isActive": true,
+    "reason": "用户注册时自动分配普通用户角色",
+    "metadata": {
+      "source": "auto_assignment",
+      "isPermanent": false
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "ur_005",
+    "userId": "user_005",
+    "roleId": "role_004",
+    "assignedBy": "user_002",
+    "assignedAt": 1704067200000,
+    "expiresAt": 1735689600000,
+    "isActive": true,
+    "reason": "临时分配内容管理员角色，负责内容审核工作",
+    "metadata": {
+      "source": "temp_assignment",
+      "isPermanent": false,
+      "duration": "90_days"
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  },
+  {
+    "_id": "ur_006",
+    "userId": "user_006",
+    "roleId": "role_005",
+    "assignedBy": "user_002",
+    "assignedAt": 1704067200000,
+    "expiresAt": null,
+    "isActive": true,
+    "reason": "分配数据分析师角色，负责数据分析和报告生成",
+    "metadata": {
+      "source": "admin_assignment",
+      "isPermanent": true
+    },
+    "createdAt": 1704067200000,
+    "updatedAt": 1704067200000
+  }
+]
+  

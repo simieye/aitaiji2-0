@@ -1,0 +1,42 @@
+
+{
+  "name": "taiji_translation",
+  "title": "翻译内容表",
+  "schemas": [
+    {
+      "name": "key",
+      "title": "翻译键",
+      "type": "String"
+    },
+    {
+      "name": "languageCode",
+      "title": "语言代码",
+      "type": "String"
+    },
+    {
+      "name": "value",
+      "title": "翻译值",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "module",
+      "title": "所属模块",
+      "type": "String"
+    },
+    {
+      "name": "description",
+      "title": "描述",
+      "type": "MultiLineString"
+    },
+    {
+      "name": "isSystem",
+      "title": "是否系统翻译",
+      "type": "Boolean"
+    },
+    {
+      "name": "status",
+      "title": "状态",
+      "type": "String"
+    }
+  ]
+}

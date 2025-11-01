@@ -12,7 +12,8 @@ import { Layout } from '@/components/Layout';
 // @ts-ignore;
 import { ExperimentProvider } from '@/components/ExperimentProvider';
 // @ts-ignore;
-import { I18nProvider } from '@/components/I18nProvider';
+import { LanguageProvider } from '@/components/LanguageContext';
+// @ts-ignore;
 
 // Lazy load pages for better performance
 const IndexPage = lazy(() => import('./pages/index'));
@@ -25,9 +26,10 @@ const ChatPage = lazy(() => import('./pages/chat'));
 const SubscriptionPage = lazy(() => import('./pages/subscription'));
 const DashboardPage = lazy(() => import('./pages/dashboard'));
 const ExperimentsPage = lazy(() => import('./pages/experiments'));
-const RolesPage = lazy(() => import('./pages/roles'));
-const ExportPage = lazy(() => import('./pages/export'));
-const I18nPage = lazy(() => import('./pages/i18n'));
+const PermissionsPage = lazy(() => import('./pages/permissions'));
+const IntegrationsPage = lazy(() => import('./pages/integrations'));
+const ExportsPage = lazy(() => import('./pages/exports'));
+const LanguagesPage = lazy(() => import('./pages/languages'));
 // Page component mapping
 const pageComponents = {
   index: IndexPage,
@@ -40,15 +42,16 @@ const pageComponents = {
   subscription: SubscriptionPage,
   dashboard: DashboardPage,
   experiments: ExperimentsPage,
-  roles: RolesPage,
-  export: ExportPage,
-  i18n: I18nPage
+  permissions: PermissionsPage,
+  integrations: IntegrationsPage,
+  exports: ExportsPage,
+  languages: LanguagesPage
 };
 // Loading component
 const LoadingSpinner = () => <div className="min-h-screen bg-gradient-to-br from-black via-gray-900 to-white flex items-center justify-center">
     <div className="text-center">
       <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-red-500 mx-auto"></div>
-      <p className="text-white mt-4">Loading...</p>
+      <p className="text-white mt-4">正在加载...</p>
     </div>
   </div>;
 // Error fallback component
@@ -106,7 +109,7 @@ function AppContent(props) {
   }, [toast]);
   return <ErrorBoundary fallback={<ErrorFallback />}>
       <PerformanceMonitor>
-        <I18nProvider>
+        <LanguageProvider $w={$w}>
           <ExperimentProvider $w={$w}>
             <Layout $w={$w} currentPage={currentPage}>
               <Suspense fallback={<LoadingSpinner />}>
@@ -114,7 +117,7 @@ function AppContent(props) {
               </Suspense>
             </Layout>
           </ExperimentProvider>
-        </I18nProvider>
+        </LanguageProvider>
       </PerformanceMonitor>
     </ErrorBoundary>;
 }
